@@ -1,20 +1,36 @@
-#' Build Family of Distribution Functions
+#' Build Distribution Functions
+#'
+#' An automated wrapper for building function families given
+#' a numeric vector and the distribution family
 #'
 #' @param x
 #'
-#'
+#' numeric vector
 #'
 #' @param family
 #'
+#' distribution family character name
 #'
-#'
-#' @return
+#' @return list of family functions for d, p, q, r
 #'
 #' @import fitdistrplus
 #'
 #' @export
 #'
 #' @examples
+#' fittedDists <- build_dist(rpois(100,5), 'pois')
+#' dpois(x = 5, lambda = 5)
+#' fittedDists$d(5)
+#' ppois(5, 5)
+#' fittedDists$p(5)
+#' qpois(.5, 5)
+#' fittedDists$q(.5)
+#' set.seed(8257)
+#' rpois(100, 5)
+#' set.seed(8257)
+#' fittedDists$r(100)
+
+
 build_dist <- function(x, family) {
 
   # generate list of distribution functions
@@ -44,6 +60,7 @@ build_dist <- function(x, family) {
 #' @param ...
 #'
 #' @return
+#' one of parameterized distribution functions in d, p, q, r
 
 gen_dist_fun <- function(f, parameters, ...) {
   function(...)
