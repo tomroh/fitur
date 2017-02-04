@@ -21,27 +21,28 @@
 #' @export
 #'
 #' @examples
-fit_univariate <- function(x, family, type) {
+fit_univariate <- function(x, family, type = 'continuous') {
 
-  #'hyper'
+  #'hyper', 'dunif', 'empirical'
 
-  discreteFam <- c('geom', 'empirical',
-                   'nbinom', 'pois', 'dunif')
+  discreteFam <- c('geom', 'nbinom', 'pois')
 
 
   if (type %in% 'discrete') {
 
     stopifnot(is.integer(x))
 
-    if (family %in% c('geom', 'pois', 'nbinom', 'unif')) {
-      parameters <- fitdist(x, distr = family)[['estimate']]
-      build_dist(x, family)
+    if (family %in% discreteFam) {
+      return(build_dist(x, family))
     }
     else if (family %in% 'empirical') {
+
     }
     else {
       message("family not in supported discrete distributions")
     }
+  } else if (type %in% 'continuous') {
+
   }
 
 
@@ -50,23 +51,12 @@ fit_univariate <- function(x, family, type) {
     # create master table
     # manual build of d (subset to name), p is cumulative,
     # q is inverse of 0-1 percentile (rounding), for r use sample
-    parameters <- fitdist(x, distr = family)[['estimate']]
+    #parameters <- fitdist(x, distr = family)[['estimate']]
   }
-  FUNS <- c('d', 'p', 'q', 'r')
-  lapply(setNames(FUNS, FUNS), function(f) {
-    newFUN <- get(paste0(f, family))
-    for(parameter in names(parameters)) {
-      formals(newFUN)[[parameter]] <- parameters[[parameter]]
-    }
-    newFUN
-  })
-  list(d = ,
-       p = ,
-       q = ,
-       r = )
 
 }
 
 
 
+test <- fit_univariate(rpois(100000, 5), 'geom', 'discrete')
 

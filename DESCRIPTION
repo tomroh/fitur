@@ -1,9 +1,10 @@
 Package: fitur
-Title: What the Package Does (one line, title case)
+Title: Fit Univariate Distributions
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Thomas", "Roh", email = "thmsroh@gmail.com", role = c("aut", "cre"))
+Description: Wrapper for computing parameters and then assigning to distribution function families.
 Depends: R (>= 3.3.2)
-License: What license is it under?
+Imports: fitdistrplus
+License: Propietary
 Encoding: UTF-8
 LazyData: true

@@ -1,3 +1,20 @@
+#' Build Family of Distribution Functions
+#'
+#' @param x
+#'
+#'
+#'
+#' @param family
+#'
+#'
+#'
+#' @return
+#'
+#' @import fitdistrplus
+#'
+#' @export
+#'
+#' @examples
 build_dist <- function(x, family) {
 
   # generate list of distribution functions
@@ -7,24 +24,40 @@ build_dist <- function(x, family) {
   })
   names(funs) <- type
 
-  params <- fitdistrplus::fitdist(data = x, distr = family)[['estimate']]
+  params <- fitdist(data = x, distr = family)[['estimate']]
   lapply(setNames(funs, names(funs)), gen_dist_fun,
          parameters = params)
 }
+#TODO optional parameter specification
+
+
+#' Generate Single Distribution Function
+#'
+#' @param f
+#'
+#' one of distribution functions
+#'
+#' @param parameters
+#'
+#' new parameters for distribution
+#'
+#' @param ...
+#'
+#' @return
 
 gen_dist_fun <- function(f, parameters, ...) {
   function(...)
     do.call(f, c(list(...), parameters))
 }
 
-fittedDists <- build_dist(rpois(100,5), 'pois')
-dpois(x = 5, lambda = 5)
-fittedDists$d(5)
-ppois(5, 5)
-fittedDists$p(5)
-qpois(.5, 5)
-fittedDists$q(.5)
-set.seed(82)
-rpois(100, 5)
-set.seed(82)
-fittedDists$r(100)
+# fittedDists <- build_dist(rpois(100,5), 'pois')
+# dpois(x = 5, lambda = 5)
+# fittedDists$d(5)
+# ppois(5, 5)
+# fittedDists$p(5)
+# qpois(.5, 5)
+# fittedDists$q(.5)
+# set.seed(82)
+# rpois(100, 5)
+# set.seed(82)
+# fittedDists$r(100)
