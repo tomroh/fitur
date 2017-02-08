@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-fit_empirical_uniform <- function(x) {
+fit_empirical_discrete <- function(x) {
   stopifnot(is.integer(x))
   x <- sort(x)
   values <- unique(x)
