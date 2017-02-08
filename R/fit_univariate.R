@@ -33,6 +33,7 @@
 #' fittedExp$q(.5)
 #' fittedExp$r(100)
 
+
 fit_univariate <- function(x, family, type = 'continuous') {
 
   stopifnot(is.numeric(x))
@@ -69,6 +70,7 @@ fit_univariate <- function(x, family, type = 'continuous') {
     }
   }
 }
+
 
 #TODO explore using bound argument
 #TODO offset argument, automate with small number?
