@@ -2,10 +2,23 @@
 #'
 #' @param x
 #'
+#' integer vector
+#'
 #' @return
+#'
+#' family of probability distribution functions
+#'
 #' @export
 #'
 #' @examples
+#' set.seed(562)
+#' x <- rpois(100, 5)
+#' empDis <- fit_empirical_uniform(x)
+#' empDis$d(1)
+#' empDis$p(2)
+#' empDis$q(1)
+#' table(empDis$r(10000))/10000
+
 fit_empirical_discrete <- function(x) {
   stopifnot(is.integer(x))
   x <- sort(x)
