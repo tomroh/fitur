@@ -14,7 +14,7 @@
 #'
 #' @return
 #'
-#' an MLE fitted function family
+#' a fitted function family, MLE for probability distributions, custom fit for empirical (see functions)
 #'
 #' @export
 #'
