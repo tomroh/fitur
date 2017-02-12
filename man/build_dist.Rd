@@ -31,4 +31,3 @@ rpois(100, 5)
 set.seed(8257)
 fittedDists$r(100)
 }
-

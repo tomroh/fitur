@@ -19,4 +19,3 @@ one of parameterized distribution functions in d, p, q, r
 \description{
 Generate Single Distribution Function
 }
-
