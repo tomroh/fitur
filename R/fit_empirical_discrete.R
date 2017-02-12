@@ -13,7 +13,7 @@
 #' @examples
 #' set.seed(562)
 #' x <- rpois(100, 5)
-#' empDis <- fit_empirical_uniform(x)
+#' empDis <- fit_empirical_discrete(x)
 #' empDis$d(1)
 #' empDis$p(2)
 #' empDis$q(1)
@@ -23,7 +23,8 @@ fit_empirical_discrete <- function(x) {
   stopifnot(is.integer(x))
   x <- sort(x)
   values <- unique(x)
-  probs <- tabulate(x)/length(x)
+  # convert to factors so tabulate doesn't ignore numbers <= 0
+  probs <- tabulate(as.factor(x))/length(x)
 
   d <- function(x) {
     probs[x == values]
@@ -43,10 +44,3 @@ fit_empirical_discrete <- function(x) {
   list(d = d, p = p, q = q, r= r)
 
 }
-
-# testfit <- fit_empirical_uniform(as.integer(x))
-# testfit$d(1)
-# testfit$p(2)
-# testfit$q(1)
-# table(testfit$r(10000))/10000
-

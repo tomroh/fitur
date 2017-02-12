@@ -11,7 +11,7 @@ gen_dist_fun(f, parameters, ...)
 
 \item{parameters}{new parameters for distribution}
 
-\item{...}{}
+\item{...}{arguments to pass on to distribution function}
 }
 \value{
 one of parameterized distribution functions in d, p, q, r

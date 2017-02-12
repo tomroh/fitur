@@ -18,7 +18,7 @@ Fit Empirical Discrete Distribution Family
 \examples{
 set.seed(562)
 x <- rpois(100, 5)
-empDis <- fit_empirical_uniform(x)
+empDis <- fit_empirical_discrete(x)
 empDis$d(1)
 empDis$p(2)
 empDis$q(1)

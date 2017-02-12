@@ -8,6 +8,8 @@
 #'
 #' family of probability distribution functions
 #'
+#' @import stats
+#'
 #' @export
 #'
 #' @examples

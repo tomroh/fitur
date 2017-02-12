@@ -37,7 +37,7 @@
 fit_univariate <- function(x, family, type = 'continuous') {
 
   stopifnot(is.numeric(x))
-  stopifnot(type %in% c('discrete', 'continous'))
+  stopifnot(type %in% c('discrete', 'continuous'))
 
   # hyper, dunif, empirical
   discreteFam <- c('geom', 'nbinom', 'pois')

@@ -59,6 +59,8 @@ build_dist <- function(x, family) {
 #'
 #' @param ...
 #'
+#' arguments to pass on to distribution function
+#'
 #' @return
 #' one of parameterized distribution functions in d, p, q, r
 
