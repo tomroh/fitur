@@ -1,0 +1,43 @@
+---
+title: "Introduction to fitur"
+author: "Thomas Roh"
+date: "February 13, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(fitur)
+```
+
+## Basic Function
+
+fitur is a package to provide wrapper functions for fitting univariate distributions. The main function is `fit_univariate` where you can supply numeric data to the function along with the desired attributes of the distribution you want to fit. It returns an list object with the density, distribution, quantile, and random deviates functions based on the calculated parameters from the given numeric vector.
+
+## Discrete Distributions
+
+```{r, discrete}
+# Fit Discrete Distribution
+fittedPois <- fit_univariate(rpois(100, 1), 'pois', 'discrete')
+fittedPois$d(1)
+fittedPois$p(1)
+fittedPois$q(.5)
+fittedPois$r(100)
+```
+
+## Continuous Distributions
+
+```{r, continuous}
+fittedExp <- fit_univariate(rexp(100, 1), 'exp')
+fittedExp$d(1)
+fittedExp$p(1)
+fittedExp$q(.5)
+fittedExp$r(100)
+```
+
+## Empirical Distributions
+
+```{r, empirical}
+
+```
+
