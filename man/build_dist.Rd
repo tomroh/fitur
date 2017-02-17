@@ -15,7 +15,7 @@ build_dist(x, family)
 list of family functions for d, p, q, r
 }
 \description{
-An automated wrapper for building function families given
+A wrapper for building function families given
 a numeric vector and the distribution family
 }
 \examples{

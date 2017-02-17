@@ -74,17 +74,3 @@ fit_univariate <- function(x, family, type = 'continuous') {
 
 #TODO explore using bound argument
 #TODO offset argument, automate with small number?
-
-# Discrete Fit Example
-# fittedPois <- fit_univariate(rpois(100, 1), 'pois', 'discrete')
-# fittedPois$d(1)
-# fittedPois$p(1)
-# fittedPois$q(.5)
-# fittedPois$r(100)
-#
-# Continuous Fit Example
-# fittedExp <- fit_univariate(rexp(100, 1), 'exp', 'continous')
-# fittedExp$d(1)
-# fittedExp$p(1)
-# fittedExp$q(.5)
-# fittedExp$r(100)
