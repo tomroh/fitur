@@ -1,5 +1,5 @@
 ---
-title: "fitur Documentation"
+title: "Notes"
 author: "Thomas Roh"
 date: "January 29, 2017"
 output: html_document
