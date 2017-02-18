@@ -12,13 +12,14 @@ library(fitur)
 
 ## Basic Function
 
-fitur is a package to provide wrapper functions for fitting univariate distributions. The main function is `fit_univariate` where you can supply numeric data to the function along with the desired attributes of the distribution you want to fit. It returns an list object with the density, distribution, quantile, and random deviates functions based on the calculated parameters from the given numeric vector.
+fitur is a package to provide wrapper functions for fitting univariate distributions. The main function is `fit_univariate` where you can supply numeric data to the function along with the desired attributes of the distribution you want to fit. It returns a list object with the density, distribution, quantile, and random deviates functions based on the calculated parameters from the given numeric vector.
 
 ## Discrete Distributions
 
 ```{r, discrete}
-# Fit Discrete Distribution
-fittedPois <- fit_univariate(rpois(100, 1), 'pois', 'discrete')
+set.seed(562)
+x <- rpois(100, 1)
+fittedPois <- fit_univariate(x, 'pois', 'discrete')
 fittedPois$d(1)
 fittedPois$p(1)
 fittedPois$q(.5)
@@ -28,16 +29,35 @@ fittedPois$r(100)
 ## Continuous Distributions
 
 ```{r, continuous}
-fittedExp <- fit_univariate(rexp(100, 1), 'exp')
+set.seed(562)
+x <- rexp(100, 1)
+fittedExp <- fit_univariate(x, 'exp')
 fittedExp$d(1)
 fittedExp$p(1)
 fittedExp$q(.5)
 fittedExp$r(100)
 ```
 
+The package also allows users to specify empirical distributions. For discrete distributions, the function will not truncate any integer values  with the given
+input. For continuous distributions, the function will create bins using the Freedman-Diaconis rule.
+
 ## Empirical Distributions
 
 ```{r, empirical}
+set.seed(562)
+x <- rpois(100, 1)
+fittedDEmp <- fit_univariate(x, family = 'empirical', type = 'discrete')
+fittedDEmp$d(1)
+fittedDEmp$p(1)
+fittedDEmp$q(.5)
+fittedDEmp$r(100)
 
+set.seed(562)
+x <- rexp(100, 1)
+fittedCEmp <- fit_univariate(x, family = 'empirical', type = 'continuous')
+fittedCEmp$d(1)
+fittedCEmp$p(1)
+fittedCEmp$q(.5)
+fittedCEmp$r(100)
 ```
 
