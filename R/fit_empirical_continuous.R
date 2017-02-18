@@ -46,7 +46,7 @@ fit_empirical_continuous <- function(x) {
     sum(probs[q >= leftEnds])
   }
 
-  qt <- function(p) {
+  q <- function(p) {
     max(mids[cumsum(probs) <= p])
   }
 
