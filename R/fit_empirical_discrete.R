@@ -31,7 +31,7 @@ fit_empirical_discrete <- function(x) {
   }
 
   p <- function(q) {
-    sum(probs[q <= values])
+    sum(probs[q >= values])
   }
 
   q <- function(p) {
