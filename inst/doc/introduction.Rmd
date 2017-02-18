@@ -42,10 +42,10 @@ fittedExp$q(.5)
 fittedExp$r(100)
 ```
 
+## Empirical Distributions
+
 The package also allows users to specify empirical distributions. For discrete distributions, the function will not truncate any integer values  with the given
 input. For continuous distributions, the function will create bins using the Freedman-Diaconis rule.
-
-## Empirical Distributions
 
 ```{r, empirical}
 set.seed(562)
