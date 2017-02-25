@@ -73,5 +73,6 @@ fit_univariate <- function(x, family, type = 'continuous') {
 }
 
 
-#TODO explore using bound argument
+#TODO explore using bound argument, probably out of scope (better for app)
 #TODO offset argument, automate with small number?
+
