@@ -36,37 +36,28 @@
 #' pdunif(1)
 #' qdunif(.5)
 #' rdunif(10)
+#' @name discrete_uniform
 
-#'
-#' @export
-#'
 #' @rdname discrete_uniform
-#'
+#' @export
 ddunif <- function(x, min=0, max=1) {
   ifelse(x>=min & x<=max & round(x)==x, 1/(max-min+1), 0)
 }
 
-#'
-#' @export
-#'
 #' @rdname discrete_uniform
-#'
+#' @export
 pdunif <- function(q, min=0, max=1) {
   ifelse(q<min, 0, ifelse(q>=max, 1, (floor(q)-min+1)/(max-min+1)))
 }
 
-#'
-#' @export
-#'
 #' @rdname discrete_uniform
+#' @export
 qdunif <- function(p, min=0, max=1) {
   floor(p*(max-min+1))
 }
 
-#'
-#' @export
-#'
 #' @rdname discrete_uniform
+#' @export
 rdunif <- function(n, min=0, max=1) {
   sample(min:max, n, replace=TRUE)
 }
