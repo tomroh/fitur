@@ -73,11 +73,11 @@ ptriangle <- function(q, min=0, mode = .5, max=1) {
 #' @rdname Triangle
 #' @export
 qtriangle <- function(p, min=0, mode = .5, max=1) {
-  floor(p*(max-min+1))
+
 }
 
 #' @rdname Triangle
 #' @export
 rtriangle <- function(n, min=0, mode = .5, max=1) {
-  sample(min:max, n, replace=TRUE)
+
 }
