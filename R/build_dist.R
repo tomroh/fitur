@@ -13,7 +13,7 @@
 #'
 #' @return list of family functions for d, p, q, r
 #'
-#' @import fitdistrplus
+#' @import fitdistrplus actuar
 #'
 #' @export
 #'
