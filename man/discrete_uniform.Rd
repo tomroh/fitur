@@ -30,7 +30,7 @@ rdunif(n, min = 0, max = 1)
 \item{n}{number of random values to return}
 }
 \value{
-ddfunif gives the density, pdunif gives the distribution function,
+ddunif gives the density, pdunif gives the distribution function,
 qdunif gives the quantile function, rdunif generates random deviates
 }
 \description{
