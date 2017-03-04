@@ -42,7 +42,8 @@ fit_univariate <- function(x, family, type = 'continuous') {
   # hyper, dunif, empirical
   discreteFam <- c('geom', 'nbinom', 'pois')
   continuousFam <- c('exp', 'cauchy', 'gamma', 'lnorm',
-                     'norm', 'unif', 'weibull', 'llogis')
+                     'norm', 'unif', 'weibull', 'llogis', 'logis',
+                     'invweibull', 'invgamma')
 
   if (family %in% 'empirical') {
     if(type %in% 'discrete') {
