@@ -1,14 +1,14 @@
 # fitur
 
-The goal of fitur is to provide a wrapper function to take numeric data and fit the parameters to the specified distribution. The function returns and object that has the d, p, q, r family family functions with the fitted parameters.
+The goal of fitur is to provide a wrapper function to take numeric data and fit the parameters to the specified distribution. The function returns an object that has the d, p, q, r family family functions with the fitted parameters.
 
 ## Installation
 
 You can install fitur from github with:
 
 ```R
-# install.packages("devtools")
-devtools::install_github("fitur/datareaver")
+install.packages('fitur')
+devtools::install_github("datareaver/fitur")
 ```
 
 ## Example
@@ -23,5 +23,4 @@ fittedPois$d(1)
 fittedPois$p(1)
 fittedPois$q(.5)
 fittedPois$r(100)
-...
 ```

@@ -40,8 +40,10 @@ fit_univariate <- function(x, family, type = 'continuous') {
   stopifnot(type %in% c('discrete', 'continuous'))
 
   # hyper, dunif, empirical
-  discreteFam <- c('geom', 'nbinom', 'pois')
-  continuousFam <- c('exp', 'gamma', 'lnorm', 'norm', 'unif', 'weibull')
+  discreteFam <- c('geom', 'nbinom', 'pois', 'dunif')
+  continuousFam <- c('exp', 'cauchy', 'gamma', 'lnorm',
+                     'norm', 'unif', 'weibull', 'llogis', 'logis',
+                     'invweibull', 'invgamma')
 
   if (family %in% 'empirical') {
     if(type %in% 'discrete') {
@@ -72,5 +74,7 @@ fit_univariate <- function(x, family, type = 'continuous') {
 }
 
 
-#TODO explore using bound argument
-#TODO offset argument, automate with small number?
+#TODO explore using bound argument, probably out of scope (better for app)
+#TODO offset argument, automate with small number?,
+#probably out of scope (better for app)
+

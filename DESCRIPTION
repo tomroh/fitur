@@ -1,13 +1,14 @@
 Package: fitur
 Title: Fit Univariate Distributions
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: person("Thomas", "Roh", email = "thmsroh@gmail.com", role = c("aut", "cre"))
 Description: Wrapper for computing parameters and then assigning to distribution
     function families.
 Depends:
     R (>= 3.3.2)
 Imports:
-    fitdistrplus
+    fitdistrplus,
+    actuar
 Suggests:
     knitr, rmarkdown
 License: MIT + file LICENSE
