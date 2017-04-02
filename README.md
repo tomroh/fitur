@@ -1,6 +1,6 @@
 # fitur
 
-The goal of fitur is to provide a wrapper function to take numeric data and fit the parameters to the specified distribution. The function returns and object that has the d, p, q, r family family functions with the fitted parameters.
+The goal of fitur is to provide a wrapper function to take numeric data and fit the parameters to the specified distribution. The function returns an object that has the d, p, q, r family family functions with the fitted parameters.
 
 ## Installation
 
