@@ -38,7 +38,12 @@ build_dist <- function(x, family) {
     get(paste0(type, family))
   })
   names(funs) <- type
-  params <- fitdist(data = x, distr = family)[['estimate']]
+
+  if (family %in% dunif) {
+    params <- c(min = min(x), max = max(x))
+  } else {
+    params <- fitdist(data = x, distr = family)[['estimate']]
+  }
   lapply(setNames(funs, names(funs)), gen_dist_fun,
          parameters = params)
 }
