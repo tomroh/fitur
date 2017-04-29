@@ -11,7 +11,7 @@
 #'
 #' distribution family character name
 #'
-#' @return list of family functions for d, p, q, r
+#' @return list of family functions for d, p, q, r, and parameters
 #'
 #' @import fitdistrplus actuar
 #'
@@ -20,22 +20,23 @@
 #' @examples
 #' fittedDists <- build_dist(rpois(100,5), 'pois')
 #' dpois(x = 5, lambda = 5)
-#' fittedDists$d(5)
+#' fittedDists$dpois(5)
 #' ppois(5, 5)
-#' fittedDists$p(5)
+#' fittedDists$ppois(5)
 #' qpois(.5, 5)
-#' fittedDists$q(.5)
+#' fittedDists$qpois(.5)
 #' set.seed(8257)
 #' rpois(100, 5)
 #' set.seed(8257)
-#' fittedDists$r(100)
+#' fittedDists$rpois(100)
+#' fittedDists$parameters
 
 
 build_dist <- function(x, family) {
   # generate list of distribution functions
-  type <- c('d', 'p', 'q', 'r')
+  type <- paste0(c('d', 'p', 'q', 'r'), family)
   funs <- lapply(type, function(type) {
-    get(paste0(type, family))
+    get(type)
   })
   names(funs) <- type
 

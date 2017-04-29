@@ -22,15 +22,17 @@ Fit Univariate Distribution
 \examples{
 # Fit Discrete Distribution
 fittedPois <- fit_univariate(rpois(100, 1), 'pois', 'discrete')
-fittedPois$d(1)
-fittedPois$p(1)
-fittedPois$q(.5)
-fittedPois$r(100)
+fittedPois$dpois(1)
+fittedPois$ppois(1)
+fittedPois$qpois(.5)
+fittedPois$rpois(100)
+fittedPois$parameters
 
 # Fit Continuous Distribution
 fittedExp <- fit_univariate(rexp(100, 1), 'exp')
-fittedExp$d(1)
-fittedExp$p(1)
-fittedExp$q(.5)
-fittedExp$r(100)
+fittedExp$dexp(1)
+fittedExp$pexp(1)
+fittedExp$qexp(.5)
+fittedExp$rexp(100)
+fittedExp$parameters
 }

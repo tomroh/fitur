@@ -10,7 +10,7 @@ fit_empirical_continuous(x)
 \item{x}{numeric vector}
 }
 \value{
-family of probability distribution functions
+list of family functions for d, p, q, r, and parameters
 }
 \description{
 Fit Continous Empirical Distribution Family
