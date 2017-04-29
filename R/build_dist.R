@@ -40,12 +40,14 @@ build_dist <- function(x, family) {
   names(funs) <- type
 
   if (family %in% 'dunif') {
-    params <- c(min = min(x), max = max(x))
+    parameters <- c(min = min(x), max = max(x))
   } else {
-    params <- fitdist(data = x, distr = family)[['estimate']]
+    parameters <- fitdist(data = x, distr = family)[['estimate']]
   }
-  lapply(setNames(funs, names(funs)), gen_dist_fun,
-         parameters = params)
+  funs <- lapply(setNames(funs, names(funs)), gen_dist_fun,
+         parameters = parameters)
+  funs[['parameters']] <- parameters
+  funs
 }
 
 #' Generate Single Distribution Function
