@@ -19,8 +19,9 @@ This is a basic example to fit a poisson distribution with new parameters and re
 set.seed(562)
 x <- rpois(100, 1)
 fittedPois <- fit_univariate(x, 'pois', 'discrete')
-fittedPois$d(1)
-fittedPois$p(1)
-fittedPois$q(.5)
-fittedPois$r(100)
+fittedPois$dpois(1)
+fittedPois$ppois(1)
+fittedPois$qpois(.5)
+fittedPois$rpois(100)
+fittedPois$parameters
 ```
