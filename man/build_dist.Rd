@@ -12,7 +12,7 @@ build_dist(x, family)
 \item{family}{distribution family character name}
 }
 \value{
-list of family functions for d, p, q, r
+list of family functions for d, p, q, r, and parameters
 }
 \description{
 A wrapper for building function families given
@@ -21,13 +21,14 @@ a numeric vector and the distribution family
 \examples{
 fittedDists <- build_dist(rpois(100,5), 'pois')
 dpois(x = 5, lambda = 5)
-fittedDists$d(5)
+fittedDists$dpois(5)
 ppois(5, 5)
-fittedDists$p(5)
+fittedDists$ppois(5)
 qpois(.5, 5)
-fittedDists$q(.5)
+fittedDists$qpois(.5)
 set.seed(8257)
 rpois(100, 5)
 set.seed(8257)
-fittedDists$r(100)
+fittedDists$rpois(100)
+fittedDists$parameters
 }

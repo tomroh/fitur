@@ -6,7 +6,7 @@
 #'
 #' @return
 #'
-#' family of probability distribution functions
+#' list of family functions for d, p, q, r, and parameters
 #'
 #' @import stats
 #'
@@ -16,10 +16,11 @@
 #' set.seed(562)
 #` x <- rexp(100, 5)
 #` empCont <- fit_empirical_continuous(x)
-#` empCont$d(.2)
-#` empCont$p(.2)
-#` empCont$q(.8)
-#` empCont$r(100)
+#` empCont$dempCont(.2)
+#` empCont$pempCont(.2)
+#` empCont$qempCont(.8)
+#` empCont$rempCont(100)
+#` empCont$parameters
 fit_empirical_continuous <- function(x) {
   stopifnot(is.double(x))
   x <- sort(x)
@@ -53,7 +54,8 @@ fit_empirical_continuous <- function(x) {
   r <- function(n) {
     sample(x = mids, size = n, prob = probs, replace = TRUE)
   }
-  list(d = d, p = p, q = q, r= r)
+  list(dempCont = d, pempCont = p, qempCont = q, rempCont= r,
+       parameters = probs)
 }
 
 get_interval_nums <- function(cuts) {

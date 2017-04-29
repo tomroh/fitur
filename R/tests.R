@@ -6,6 +6,7 @@
 # fittedPois$p(1)
 # fittedPois$q(.5)
 # fittedPois$r(100)
+# fittedPois$parameters
 #
 # # Compare to explicitly
 # lambda <- fitdist(x, distr = 'pois')[['estimate']]

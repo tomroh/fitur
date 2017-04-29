@@ -6,7 +6,7 @@
 #'
 #' @return
 #'
-#' family of probability distribution functions
+#' list of family functions for d, p, q, r, and parameters
 #'
 #' @export
 #'
@@ -14,10 +14,11 @@
 #' set.seed(562)
 #' x <- rpois(100, 5)
 #' empDis <- fit_empirical_discrete(x)
-#' empDis$d(1)
-#' empDis$p(2)
-#' empDis$q(1)
-#' table(empDis$r(10000))/10000
+#' empDis$dempDis(1)
+#' empDis$pempDis(2)
+#' empDis$qempDis(1)
+#' empDis$r(10000)
+#' empDis$parameters
 
 fit_empirical_discrete <- function(x) {
   stopifnot(is.integer(x))
@@ -25,6 +26,7 @@ fit_empirical_discrete <- function(x) {
   values <- unique(x)
   # convert to factors so tabulate doesn't ignore numbers <= 0
   probs <- tabulate(as.factor(x))/length(x)
+  names(probs) <- values
 
   d <- function(x) {
     probs[x == values]
@@ -41,6 +43,6 @@ fit_empirical_discrete <- function(x) {
   r <- function(n) {
     sample(x = values, size = n, prob = probs, replace = TRUE)
   }
-  list(d = d, p = p, q = q, r= r)
-
+  list(dempDis = d, pempDis = p, qempDis = q, rempDis = r,
+       parameters = probs)
 }
