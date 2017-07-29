@@ -20,7 +20,12 @@ summarize_stats <- function(x) {
   c(quantile(x, probs = seq(0, 1, .01)),
     mean = mean(x),
     sd = sd(x),
+    mode = Mode(x),
     skewness = skewness(x),
     kurtosis = kurtosis(x))
 }
 
+Mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
