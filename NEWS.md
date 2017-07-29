@@ -1,3 +1,11 @@
+# fitur 0.5.0
+
+* Added function to summarize necessary statistics
+
+# fitur 0.4.0
+
+* Added documentation for supported univariate distributions
+
 # fitur 0.3.0
 
 * Changed naming of fitted distribution object (output of fit_univariate) to be 
