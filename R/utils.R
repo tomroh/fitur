@@ -25,6 +25,11 @@ summarize_stats <- function(x) {
     kurtosis = kurtosis(x))
 }
 
+fit_univariate_man <- function(distribution, parameters) {
+
+
+}
+
 Mode <- function(x) {
   ux <- unique(x)
   ux[which.max(tabulate(match(x, ux)))]
