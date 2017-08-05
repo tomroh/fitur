@@ -55,8 +55,6 @@ fit_univariate_man <- function(family, parameters) {
     get(type)
   })
   names(funs) <- type
-#
-#   stopifnot(names(parameters) %in% names(formals(funs[[1]])))
 
   funs <- lapply(setNames(funs, names(funs)), gen_dist_fun,
                  parameters = parameters)

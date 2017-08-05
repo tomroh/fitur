@@ -1,6 +1,9 @@
 # fitur 0.5.0
 
-* Added function to summarize necessary statistics
+* Added fit_univariate_man for manually specifying parameters and generating a
+distribution
+
+* Added function to summarize statistics for distribution inspection
 
 # fitur 0.4.0
 
