@@ -1,4 +1,4 @@
-#' Utilities for fitur
+#' Provide Summary Stats for Inspecting Numeric Data
 #'
 #' @param x
 #'
