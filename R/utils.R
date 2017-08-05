@@ -25,12 +25,38 @@ summarize_stats <- function(x) {
     kurtosis = kurtosis(x))
 }
 
-fit_univariate_man <- function(distribution, parameters) {
-
-
-}
+# fit_univariate_man <- function(distribution, parameters) {
+#   params <- match.arg(c("mean", "sd"),
+#                       names(formals(rnorm)),
+#                       several.ok = TRUE)
+#   gen
+#
+#
+# }
 
 Mode <- function(x) {
   ux <- unique(x)
   ux[which.max(tabulate(match(x, ux)))]
+}
+
+#' Generate Single Distribution Function
+#'
+#' @param f
+#'
+#' one of distribution functions
+#'
+#' @param parameters
+#'
+#' new parameters for distribution
+#'
+#' @param ...
+#'
+#' arguments to pass on to distribution function
+#'
+#' @return
+#' one of parameterized distribution functions in d, p, q, r
+
+gen_dist_fun <- function(f, parameters, ...) {
+  function(...)
+    do.call(f, c(list(...), parameters))
 }

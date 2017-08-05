@@ -50,25 +50,3 @@ build_dist <- function(x, family) {
   funs[['parameters']] <- parameters
   funs
 }
-
-#' Generate Single Distribution Function
-#'
-#' @param f
-#'
-#' one of distribution functions
-#'
-#' @param parameters
-#'
-#' new parameters for distribution
-#'
-#' @param ...
-#'
-#' arguments to pass on to distribution function
-#'
-#' @return
-#' one of parameterized distribution functions in d, p, q, r
-
-gen_dist_fun <- function(f, parameters, ...) {
-  function(...)
-    do.call(f, c(list(...), parameters))
-}
