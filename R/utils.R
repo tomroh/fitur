@@ -25,15 +25,56 @@ summarize_stats <- function(x) {
     kurtosis = kurtosis(x))
 }
 
-# fit_univariate_man <- function(distribution, parameters) {
-#   params <- match.arg(c("mean", "sd"),
-#                       names(formals(rnorm)),
-#                       several.ok = TRUE)
-#   gen
-#
-#
-# }
+#' Fit Univariate Distributions by Specifying Parameters
+#'
+#' @param family
+#'
+#' distribution family character name
+#'
+#' @param parameters
+#'
+#' named vector of parameters to set
+#'
+#' @return
+#'
+#' list of family functions for d, p, q, r, and parameters
+#'
+#' @export
+#'
+#' @examples
+#' manFun <- fit_univariate_man('norm', c(mean = 2, sd = 5))
+#' set.seed(5)
+#' m1 <- mean(manFun$rnorm(100000))
+#' set.seed(5)
+#' m2 <- mean(rnorm(100000, 2, 5))
+#' identical(m1, m2)
+fit_univariate_man <- function(family, parameters) {
 
+  type <- paste0(c('d', 'p', 'q', 'r'), family)
+  funs <- lapply(type, function(type) {
+    get(type)
+  })
+  names(funs) <- type
+#
+#   stopifnot(names(parameters) %in% names(formals(funs[[1]])))
+
+  funs <- lapply(setNames(funs, names(funs)), gen_dist_fun,
+                 parameters = parameters)
+  funs[['parameters']] <- parameters
+  funs
+
+}
+
+#' Find Mode
+#'
+#' @param x
+#'
+#' vector of data
+#'
+#' @return
+#'
+#' mode of data
+#'
 Mode <- function(x) {
   ux <- unique(x)
   ux[which.max(tabulate(match(x, ux)))]
