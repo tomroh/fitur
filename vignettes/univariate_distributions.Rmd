@@ -1,0 +1,38 @@
+---
+title: "Univariate Distributions"
+author: "Thomas Roh"
+date: "May 5, 2017"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to fitur}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Supported Automated Fitting of Distributions
+    
+  + Discrete Distributions
+      + Empirical (empDis)
+      + Geometric (geom)
+      + Negative Binomial (nbinom)
+      + Poisson (pois)
+      + Uniform (dunif)
+  + Continuous Distributions
+      + Empirical (empCont)
+      + Exponential (exp)
+      + Gamma (gamma)
+      + Inverse Gamma (invgamma)
+      + Inverse Gaussian (invgauss)
+          + Wald
+      + Inverse Weibull (invweibull)
+      + Log Logistic (llogis)
+          + Fisk
+      + Logistic (logis)
+      + Lognormal (lnorm)
+      + Normal (norm)
+      + Uniform (unif)
+      + Weibull
