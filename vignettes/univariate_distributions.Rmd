@@ -1,10 +1,10 @@
 ---
-title: "Univariate Distributions"
+title: "Supported Distributions"
 author: "Thomas Roh"
 date: "May 5, 2017"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to fitur}
+  %\VignetteIndexEntry{Supported Distributions}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
