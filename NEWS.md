@@ -1,3 +1,9 @@
+# fitur 0.5.0
+
+* Fixed vignette title
+
+* Added BugReports to Description
+
 # fitur 0.4.0
 
 * Added fit_univariate_man for manually specifying parameters and generating a
