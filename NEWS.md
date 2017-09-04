@@ -1,5 +1,7 @@
 # fitur 0.5.0
 
+* Consolidated fitting empirical distributions into one function
+
 * Fixed vignette title
 
 * Added BugReports to Description
