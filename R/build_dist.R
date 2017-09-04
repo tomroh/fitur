@@ -36,7 +36,7 @@ build_dist <- function(x, family) {
   # generate list of distribution functions
   type <- paste0(c('d', 'p', 'q', 'r'), family)
   funs <- lapply(type, function(type) {
-    get(type)
+    match.fun(type)
   })
   names(funs) <- type
 

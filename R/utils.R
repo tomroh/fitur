@@ -52,7 +52,7 @@ fit_univariate_man <- function(family, parameters) {
 
   type <- paste0(c('d', 'p', 'q', 'r'), family)
   funs <- lapply(type, function(type) {
-    get(type)
+    match.fun(type)
   })
   names(funs) <- type
 
