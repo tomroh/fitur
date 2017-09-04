@@ -4,7 +4,7 @@ The goal of fitur is to provide a wrapper function to take numeric data and fit 
 
 ## Installation
 
-You can install fitur from github with:
+You can install fitur from CRAN or github with:
 
 ```R
 install.packages('fitur')
