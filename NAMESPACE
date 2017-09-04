@@ -2,6 +2,7 @@
 
 export(build_dist)
 export(ddunif)
+export(fit_empirical)
 export(fit_empirical_continuous)
 export(fit_empirical_discrete)
 export(fit_univariate)
