@@ -112,11 +112,14 @@ fit_empirical_continuous <- function(x) {
   probs <- bins/sum(bins)
 
   d <- function(x) {
-    if ( x > max(rightEnds) | x < min(leftEnds)) {
-      0
-    } else {
-      probs[x >= leftEnds & x < rightEnds]
+    sapply(x, function(x) {
+      if ( x > max(rightEnds) | x < min(leftEnds)) {
+        0
+      } else {
+        probs[x >= leftEnds & x < rightEnds]
+      }
     }
+    )
   }
 
   p <- function(q) {
