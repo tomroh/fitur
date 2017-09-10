@@ -1,5 +1,7 @@
 # fitur 0.5.0
 
+* Fixed bug so that empirical distributions functions are now vectorized
+
 * Consolidated fitting empirical distributions into one function
 
 * Fixed vignette title
