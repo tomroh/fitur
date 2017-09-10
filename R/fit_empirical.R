@@ -61,17 +61,17 @@ fit_empirical_discrete <- function(x) {
   probs <- tabulate(as.factor(x))/length(x)
   names(probs) <- values
 
-  d <- function(x) {
+  d <- Vectorize(function(x) {
     probs[x == values]
-  }
+  })
 
-  p <- function(q) {
+  p <- Vectorize(function(q) {
     sum(probs[q >= values])
-  }
+  })
 
-  q <- function(p) {
+  q <- Vectorize(function(p) {
     max(values[cumsum(probs) <= p])
-  }
+  })
 
   r <- function(n) {
     sample(x = values, size = n, prob = probs, replace = TRUE)
@@ -111,16 +111,13 @@ fit_empirical_continuous <- function(x) {
   rightEnds <- sapply(intervals, max)
   probs <- bins/sum(bins)
 
-  d <- function(x) {
-    sapply(x, function(x) {
-      if ( x > max(rightEnds) | x < min(leftEnds)) {
-        0
-      } else {
-        probs[x >= leftEnds & x < rightEnds]
-      }
+  d <- Vectorize(function(x) {
+    if ( x > max(rightEnds) | x < min(leftEnds)) {
+      0
+    } else {
+      probs[x >= leftEnds & x < rightEnds]
     }
-    )
-  }
+  })
 
   p <- Vectorize(function(q) {
     sum(probs[q >= leftEnds])
