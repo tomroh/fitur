@@ -122,13 +122,13 @@ fit_empirical_continuous <- function(x) {
     )
   }
 
-  p <- function(q) {
+  p <- Vectorize(function(q) {
     sum(probs[q >= leftEnds])
-  }
+  })
 
-  q <- function(p) {
+  q <- Vectorize(function(p) {
     max(mids[cumsum(probs) <= p])
-  }
+  })
 
   r <- function(n) {
     sample(x = mids, size = n, prob = probs, replace = TRUE)
