@@ -48,15 +48,8 @@ fit_univariate <- function(x, family, type = 'continuous') {
                      'invweibull', 'invgamma')
 
   if (family %in% 'empirical') {
-    if(type %in% 'discrete') {
-      fit_empirical_discrete(x)
-    }
-    else {
-      fit_empirical_continuous(x)
-    }
-  }
-
-  else if (type %in% 'discrete') {
+    fit_empirical(x)
+  } else if (type %in% 'discrete') {
     stopifnot(is.integer(x))
     if (family %in% discreteFam) {
       return(build_dist(x, family))
@@ -65,7 +58,7 @@ fit_univariate <- function(x, family, type = 'continuous') {
       message("family not in supported discrete distributions")
     }
   } else if (type %in% 'continuous') {
-    stopifnot(is.numeric(x))
+    stopifnot(is.double(x))
     if (family %in% continuousFam) {
       return(build_dist(x, family))
     }
@@ -74,9 +67,3 @@ fit_univariate <- function(x, family, type = 'continuous') {
     }
   }
 }
-
-
-#TODO explore using bound argument, probably out of scope (better for app)
-#TODO offset argument, automate with small number?,
-#probably out of scope (better for app)
-

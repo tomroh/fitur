@@ -52,11 +52,20 @@ fit_univariate_man <- function(family, parameters) {
 
   type <- paste0(c('d', 'p', 'q', 'r'), family)
   funs <- lapply(type, function(type) {
-    get(type)
+    match.fun(type)
   })
   names(funs) <- type
 
-  funs <- lapply(setNames(funs, names(funs)), gen_dist_fun,
+  # parameter name checking
+  allParams <- unique(names(unlist(lapply(unname(funs), formals))))
+  specParams <- names(parameters)
+  matchedArgs <- match.arg(specParams, allParams, several.ok = TRUE)
+  if (length(matchedArgs) != length(specParams)) {
+    stop("Specified names of parameters do not match argument names of functions")
+  }
+
+  funs <- lapply(setNames(funs, names(funs)),
+                 gen_dist_fun,
                  parameters = parameters)
   funs[['parameters']] <- parameters
   funs

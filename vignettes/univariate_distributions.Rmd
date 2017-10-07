@@ -4,7 +4,7 @@ author: "Thomas Roh"
 date: "May 5, 2017"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Supported Distributions}
+  %\VignetteIndexEntry{Univariate Distributions}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
