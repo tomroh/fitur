@@ -1,5 +1,9 @@
 # fitur 0.5.0
 
+* Update DESCRIPTION
+
+* Parameter name error checking for fit_univariate_manual
+
 * Fixed bug so that empirical distributions functions are now vectorized
 
 * Consolidated fitting empirical distributions into one function
