@@ -1,7 +1,7 @@
 ## Test environments
 
-* Ubuntu 16.04.1, R 3.4.1
-* CentOS 3.10.0, R 3.4.1
+* Ubuntu 14.04, R 3.4.1
+* OS X, R 3.4.1
 * win-builder (devel and release)
 
 ## R CMD check results
