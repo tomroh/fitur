@@ -10,3 +10,7 @@ r:
 - release
 - oldrelease
 - devel
+
+notifications:
+  email:
+    - thomas@roh.engineering.com
