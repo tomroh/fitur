@@ -1,5 +1,5 @@
 ---
-title: "Univariate Distributions"
+title: "Supported Distributions"
 author: "Thomas Roh"
 date: "May 5, 2017"
 output: rmarkdown::html_vignette
