@@ -9,7 +9,7 @@
 
 There were no ERRORs or WARNINGs.
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 notes
 
 * The note is because there is a new maintainer email.
 
