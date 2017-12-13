@@ -8,7 +8,7 @@ You can install fitur from CRAN or github with:
 
 ```R
 install.packages('fitur')
-devtools::install_github("datareaver/fitur")
+devtools::install_github("tomroh/fitur")
 ```
 
 ## Example
