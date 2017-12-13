@@ -21,7 +21,7 @@ Fit Empirical Distribution
 \examples{
 set.seed(562)
 x <- rpois(100, 5)
-empDis <- fit_empirical_discrete(x)
+empDis <- fit_empirical(x)
 empDis$dempDis(1)
 empDis$pempDis(2)
 empDis$qempDis(1)
