@@ -28,12 +28,24 @@
 #' fittedPois$parameters
 #'
 #' # Fit Continuous Distribution
-#' fittedExp <- fit_univariate(rexp(100, 1), 'exp')
-#' fittedExp$dexp(1)
-#' fittedExp$pexp(1)
-#' fittedExp$qexp(.5)
-#' fittedExp$rexp(100)
-#' fittedExp$parameters
+#' set.seed(24)
+#' x <- rweibull(1000, shape = .5, scale = 2)
+#' fitted <- fit_univariate(x, 'weibull')
+#'
+#' # density function
+#' plot(fitted$dweibull)
+#'
+#' # distribution function
+#' plot(fitted$pweibull)
+#'
+#' # qqplot
+#' plot(fitted$qweibull)
+#'
+#' # sample from theoretical distribution
+#' fitted$rweibull(100)
+#'
+#' # estimated parameters from MLE
+#' fitted$parameters
 
 
 fit_univariate <- function(x, family, type = 'continuous') {
