@@ -8,7 +8,7 @@
 
 There were no ERRORs or WARNINGs.
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 notes
 
 * A note about there is a new package maintainer
 * A note about the added .travis.yml file
