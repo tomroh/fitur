@@ -51,7 +51,6 @@ fit_empirical <- function(x) {
 #'
 #' list of family functions for d, p, q, r, and parameters
 #'
-#' @export
 
 fit_empirical_discrete <- function(x) {
   stopifnot(is.integer(x))
@@ -94,8 +93,6 @@ fit_empirical_discrete <- function(x) {
 #' list of family functions for d, p, q, r, and parameters
 #'
 #' @import stats
-#'
-#' @export
 
 fit_empirical_continuous <- function(x) {
   stopifnot(is.double(x))
