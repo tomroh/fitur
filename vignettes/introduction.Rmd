@@ -23,12 +23,12 @@ fitur is a package to provide wrapper functions for fitting univariate distribut
 ```{r, discrete}
 set.seed(562)
 x <- rpois(100, 1)
-fittedPois <- fit_univariate(x, 'pois', 'discrete')
-fittedPois$dpois(1)
-fittedPois$ppois(1)
-fittedPois$qpois(.5)
-fittedPois$rpois(100)
-fittedPois$parameters
+udist <- fit_univariate(x, 'pois', 'discrete')
+udist$dpois(1)
+udist$ppois(1)
+udist$qpois(.5)
+udist$rpois(100)
+udist$parameters
 ```
 
 ## Continuous Distributions
@@ -36,12 +36,12 @@ fittedPois$parameters
 ```{r, continuous}
 set.seed(562)
 x <- rexp(100, 1)
-fittedExp <- fit_univariate(x, 'exp')
-fittedExp$dexp(1)
-fittedExp$pexp(1)
-fittedExp$qexp(.5)
-fittedExp$rexp(100)
-fittedPois$parameters
+udist <- fit_univariate(x, 'exp')
+udist$dexp(1)
+udist$pexp(1)
+udist$qexp(.5)
+udist$rexp(100)
+udist$parameters
 ```
 
 ## Empirical Distributions
@@ -52,20 +52,20 @@ input. For continuous distributions, the function will create bins using the Fre
 ```{r, empirical}
 set.seed(562)
 x <- rpois(100, 1)
-fittedDEmp <- fit_univariate(x, family = 'empirical', type = 'discrete')
-fittedDEmp$dempDis(1)
-fittedDEmp$pempDis(1)
-fittedDEmp$qempDis(.5)
-fittedDEmp$rempDis(100)
-fittedPois$parameters
+udist <- fit_univariate(x, family = 'empirical', type = 'discrete')
+udist$dempDis(1)
+udist$pempDis(1)
+udist$qempDis(.5)
+udist$rempDis(100)
+udist$parameters
 
 set.seed(562)
 x <- rexp(100, 1)
-fittedCEmp <- fit_univariate(x, family = 'empirical', type = 'continuous')
-fittedCEmp$dempCont(1)
-fittedCEmp$pempCont(1)
-fittedCEmp$qempCont(.5)
-fittedCEmp$rempCont(100)
-fittedPois$parameters
+udist <- fit_univariate(x, family = 'empirical', type = 'continuous')
+udist$dempCont(1)
+udist$pempCont(1)
+udist$qempCont(.5)
+udist$rempCont(100)
+udist$parameters
 ```
 
