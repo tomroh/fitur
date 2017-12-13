@@ -1,3 +1,9 @@
+# fitur 0.5.3
+
+* DESCRIPTION summary has been updated
+
+* Examples have been updated for fit_univariate
+
 # fitur 0.5.0
 
 * Update DESCRIPTION
