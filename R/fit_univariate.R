@@ -20,12 +20,24 @@
 #'
 #' @examples
 #' # Fit Discrete Distribution
-#' fittedPois <- fit_univariate(rpois(100, 1), 'pois', 'discrete')
-#' fittedPois$dpois(1)
-#' fittedPois$ppois(1)
-#' fittedPois$qpois(.5)
-#' fittedPois$rpois(100)
-#' fittedPois$parameters
+#' set.seed(42)
+#' x <- rpois(1000, 3)
+#' fitted <- fit_univariate(x, 'pois', type = 'discrete')
+#'
+#' # density function
+#' plot(fitted$dpois(x=0:10))
+#'
+#' # distribution function
+#' plot(fitted$ppois(seq(0, 10, 1)))
+#'
+#' # qqplot
+#' plot(fitted$qpois)
+#'
+#' # sample from theoretical distribution
+#' fitted$rpois(100)
+#'
+#' # estimated parameters from MLE
+#' fitted$parameters
 #'
 #' # Fit Continuous Distribution
 #' set.seed(24)
@@ -54,8 +66,8 @@ fit_univariate <- function(x, family, type = 'continuous') {
   stopifnot(type %in% c('discrete', 'continuous'))
 
   # hyper, dunif, empirical
-  discreteFam <- c('geom', 'nbinom', 'pois', 'dunif')
-  continuousFam <- c('exp', 'cauchy', 'gamma', 'lnorm',
+  discreteDists <- c('geom', 'nbinom', 'pois', 'dunif')
+  continuousDists <- c('exp', 'cauchy', 'gamma', 'lnorm',
                      'norm', 'unif', 'weibull', 'llogis', 'logis',
                      'invweibull', 'invgamma')
 
@@ -63,7 +75,7 @@ fit_univariate <- function(x, family, type = 'continuous') {
     fit_empirical(x)
   } else if (type %in% 'discrete') {
     stopifnot(is.integer(x))
-    if (family %in% discreteFam) {
+    if (family %in% discreteDists) {
       return(build_dist(x, family))
     }
     else {
@@ -71,7 +83,7 @@ fit_univariate <- function(x, family, type = 'continuous') {
     }
   } else if (type %in% 'continuous') {
     stopifnot(is.double(x))
-    if (family %in% continuousFam) {
+    if (family %in% continuousDists) {
       return(build_dist(x, family))
     }
     else {
