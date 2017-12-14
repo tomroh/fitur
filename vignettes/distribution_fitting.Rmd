@@ -1,0 +1,73 @@
+---
+title: "Fitting Distributions"
+author: "Thomas Roh"
+date: "February 13, 2017"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Fitting Distributions}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(fitur)
+library(ggplot2)
+```
+
+## Motivation
+
+## Summary Statistics
+
+kurtosis - shape of the distibutions tails, skewedness
+moments
+histogram
+
+```{r stats}
+set.seed(438)
+x <- rweibull(10000, 5)
+summarize_stats(x)
+```
+
+```{r}
+dt <- data.frame(x)
+g <- ggplot(dt, aes(x)) +
+  geom_histogram(aes(y = ..density..), 
+                bins = 30, fill = NA, color = "black") +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+g
+```
+
+
+## Diagnostic Plots
+
+histogram vs density plot
+
+```{r}
+dists <- c('exp', 'gamma', 'lnorm', 'weibull')
+cols <- c('black', 'red', 'blue', 'yellow')
+multipleFits <- lapply(dists, fit_univariate, x = x)
+for (i in 1:length(multipleFits)) {
+  g <- g +
+    stat_function(fun = multipleFits[[i]][[1]],
+                  color = cols[i],
+                  size = 1)
+}
+g
+```
+
+
+qqplot
+
+```{r qqplot}
+
+```
+
+cdf
+
+## Goodness of Fit
+
+ks test
+
+## Scaling
