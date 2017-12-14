@@ -16,32 +16,46 @@ library(fitur)
 
 ## Basic Function
 
-fitur is a package to provide wrapper functions for fitting univariate distributions. The main function is `fit_univariate` where you can supply numeric data to the function along with the desired attributes of the distribution you want to fit. It returns a list object with the density, distribution, quantile, and random deviates functions based on the calculated parameters from the given numeric vector.
+fitur is a package to provide wrapper functions for fitting univariate distributions. The main function is `fit_univariate` where you can supply numeric data to the function along with the desired attributes of the distribution you want to fit. It returns a list object with the density, distribution, quantile, and random deviates functions based on the calculated parameters from the given numeric vector. The 
+parameter estimation is done with MLE.
 
 ## Discrete Distributions
 
 ```{r, discrete}
-set.seed(562)
-x <- rpois(100, 1)
-udist <- fit_univariate(x, 'pois', 'discrete')
-udist$dpois(1)
-udist$ppois(1)
-udist$qpois(.5)
-udist$rpois(100)
-udist$parameters
+# Fit Discrete Distribution
+set.seed(42)
+x <- rpois(1000, 3)
+fitted <- fit_univariate(x, 'pois', type = 'discrete')
+# density function
+plot(fitted$dpois(x=0:10))
+# distribution function
+plot(fitted$ppois(seq(0, 10, 1)))
+# qqplot
+plot(fitted$qpois)
+# sample from theoretical distribution
+fitted$rpois(100)
+# estimated parameters from MLE
+fitted$parameters
 ```
 
 ## Continuous Distributions
 
 ```{r, continuous}
 set.seed(562)
-x <- rexp(100, 1)
-udist <- fit_univariate(x, 'exp')
-udist$dexp(1)
-udist$pexp(1)
-udist$qexp(.5)
-udist$rexp(100)
-udist$parameters
+# Fit Continuous Distribution
+set.seed(24)
+x <- rweibull(1000, shape = .5, scale = 2)
+fitted <- fit_univariate(x, 'weibull')
+# density function
+plot(fitted$dweibull)
+# distribution function
+plot(fitted$pweibull)
+# qqplot
+plot(fitted$qweibull)
+# sample from theoretical distribution
+fitted$rweibull(100)
+# estimated parameters from MLE
+fitted$parameters
 ```
 
 ## Empirical Distributions
@@ -52,20 +66,20 @@ input. For continuous distributions, the function will create bins using the Fre
 ```{r, empirical}
 set.seed(562)
 x <- rpois(100, 1)
-udist <- fit_univariate(x, family = 'empirical', type = 'discrete')
-udist$dempDis(1)
-udist$pempDis(1)
-udist$qempDis(.5)
-udist$rempDis(100)
-udist$parameters
+fitted <- fit_univariate(x, family = 'empirical', type = 'discrete')
+fitted$dempDis(1)
+fitted$pempDis(1)
+fitted$qempDis(.5)
+fitted$rempDis(100)
+fitted$parameters
 
 set.seed(562)
 x <- rexp(100, 1)
-udist <- fit_univariate(x, family = 'empirical', type = 'continuous')
-udist$dempCont(1)
-udist$pempCont(1)
-udist$qempCont(.5)
-udist$rempCont(100)
-udist$parameters
+fitted <- fit_univariate(x, family = 'empirical', type = 'continuous')
+fitted$dempCont(1)
+fitted$pempCont(1)
+fitted$qempCont(.5)
+fitted$rempCont(100)
+fitted$parameters
 ```
 
