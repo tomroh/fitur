@@ -31,9 +31,10 @@ summarize_stats(x)
 
 ```{r}
 dt <- data.frame(x)
+nbins <- 30
 g <- ggplot(dt, aes(x)) +
   geom_histogram(aes(y = ..density..), 
-                bins = 30, fill = NA, color = "black") +
+                bins = nbins, fill = NA, color = "black") +
   theme_bw() +
   theme(panel.grid = element_blank())
 g
@@ -51,12 +52,15 @@ multipleFits <- lapply(dists, fit_univariate, x = x)
 for (i in 1:length(multipleFits)) {
   g <- g +
     stat_function(fun = multipleFits[[i]][[1]],
-                  color = cols[i],
+                  aes_(color = cols[i]),
                   size = 1)
 }
-g
+g +
+  scale_color_manual(name = "Distribution",
+                     values = cols, 
+                     breaks = cols, 
+                     labels = dists)
 ```
-
 
 qqplot
 
