@@ -26,7 +26,7 @@ histogram
 ```{r stats}
 set.seed(438)
 x <- rweibull(10000, 5)
-summarize_stats(x)
+sumStats <- summarize_stats(x)
 ```
 
 ```{r}
@@ -43,32 +43,47 @@ g
 
 ## Diagnostic Plots
 
-histogram vs density plot
+### Histogram vs Density Plot
 
 ```{r}
-dists <- c('exp', 'gamma', 'lnorm', 'weibull')
-cols <- c('black', 'red', 'blue', 'yellow')
+dists <- c('gamma', 'lnorm', 'weibull')
+cols <- c('red', 'blue', 'yellow')
 multipleFits <- lapply(dists, fit_univariate, x = x)
 for (i in 1:length(multipleFits)) {
   g <- g +
     stat_function(fun = multipleFits[[i]][[1]],
-                  aes_(color = cols[i]),
+                  aes_(color = dists[i]),
                   size = 1)
 }
 g +
-  scale_color_manual(name = "Distribution",
+  scale_color_manual(name = "distribution",
                      values = cols, 
-                     breaks = cols, 
-                     labels = dists)
+                     breaks = paste0('d', dists))
 ```
 
-qqplot
+# Q-Q Plot
 
 ```{r qqplot}
+theorQuant <- lapply(multipleFits, function(fit) {
+  probs <- 1:length(x)/(length(x) + 1)
+  data.frame(distribution = names(fit)[3],
+             theoretical = sort(fit[[3]](probs)),
+             stringsAsFactors = FALSE)
+})
+theorQuant <- do.call('rbind.data.frame', theorQuant)
+qq <- data.frame(sample = rep(sort(x), 3), 
+                 theorQuant)
 
+ggplot(qq) +
+  geom_point(aes(x = theoretical, y = sample, color = distribution)) +
+  geom_abline(slope = 1,
+              color = 'black') +
+  scale_color_manual(values = c('blue', 'red', 'yellow')) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
 ```
 
-cdf
+pplot
 
 ## Goodness of Fit
 
