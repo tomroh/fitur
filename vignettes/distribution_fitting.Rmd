@@ -85,6 +85,27 @@ ggplot(qq) +
 
 pplot
 
+```{r}
+theorPerc <- lapply(multipleFits, function(fit) {
+  probs <- 1:length(x)/(length(x) + 1)
+  data.frame(distribution = names(fit)[2],
+             theoretical = sort(fit[[2]](sort(x))),
+             stringsAsFactors = FALSE)
+})
+theorPerc <- do.call('rbind.data.frame', theorPerc)
+pp <- data.frame(sample = rep(probs, 3), 
+                 theorPerc)
+
+ggplot(pp) +
+  geom_point(aes(x = theoretical, y = sample, color = distribution)) +
+  geom_abline(slope = 1,
+              color = 'black') +
+  scale_color_manual(values = c('blue', 'red', 'yellow')) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
+
 ## Goodness of Fit
 
 ks test
