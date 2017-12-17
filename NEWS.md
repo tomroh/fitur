@@ -1,3 +1,17 @@
+# fitur 0.5.20
+
+* DESCRIPTION summary has been updated
+
+* Examples have been updated for fit_univariate, fit_empirical
+
+* fit_empirical_discrete and fit_empirical_continuous are no longer exported
+
+* added plot_qq and plot_pp functions for diagnostic plotting of fits
+
+* Added a vignette Diagnostic Plots for Fitting Distributions
+
+* Introduction vignette has updated examples
+
 # fitur 0.5.0
 
 * Update DESCRIPTION

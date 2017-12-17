@@ -1,0 +1,99 @@
+---
+title: "Diagnostic Plots for Fitting Distributions"
+author: "Thomas Roh"
+date: "December 17, 2017"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Diagnostic Plots for Fitting Distributions}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.height = 5, fig.width = 7)
+library(fitur)
+library(ggplot2)
+```
+
+The `fitur` package includes several tools for visually inspecting how good of a
+fit a distribution is. To start, fictional empirical data is generated below. 
+Typically this would come from a *real-world* dataset such as the time it takes 
+to serve a customer at a bank, the length of stay in an emergency department, or
+customer arrivals to a queue.
+
+```{r stats}
+set.seed(438)
+x <- rweibull(10000, shape = 5, scale = 1)
+```
+
+## Histogram
+
+Below is a histogram showing the shape of the distribution and the y-axis has 
+been set to show the probability density. 
+
+```{r histPlot}
+dt <- data.frame(x)
+nbins <- 30
+g <- ggplot(dt, aes(x)) +
+  geom_histogram(aes(y = ..density..), 
+                bins = nbins, fill = NA, color = "black") +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+g
+```
+
+## Histogram vs Density Plot
+
+Three distributions have been chosen below to test against the dataset. Using
+the `fit_univariate` function, each of the distributions are fit to a *fitted* 
+object. The first item in each of the *fits* is the probabilty density function. 
+Each *fit* is overplotted onto the histogram to see which distribution fits 
+best.
+
+```{r densPlot}
+dists <- c('gamma', 'lnorm', 'weibull')
+cols <- c('red', 'blue', 'yellow')
+multipleFits <- lapply(dists, fit_univariate, x = x)
+for (i in 1:length(multipleFits)) {
+  g <- g +
+    stat_function(fun = multipleFits[[i]][[1]],
+                  aes_(color = dists[i]),
+                  size = 1)
+}
+g +
+  scale_color_discrete(name = "distribution",
+                     #values = cols, 
+                     breaks = dists,
+                     labels = paste0('d', dists))
+```
+
+## Q-Q Plot
+
+The next plot used is the quantile-quantile plot. The `plot_qq` function takes 
+a numeric vector *x* of the empirical data and sorts them. A range
+of probabilities are computed and then used to compute comparable quantiles 
+using the `q` distribution function from the *fitted* objects. A good fit would 
+closely align with the abline y = 0 + 1*x. Note: the q-q plot tends to be more
+sensitive around the "tails" of the distributions.
+
+```{r qqplot}
+plot_qq(x, multipleFits) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
+## P-P Plot
+
+The Percentile-Percentile plot rescales the input data to the interval (0, 1] and
+then calculates the theoretical percentiles to compare. The `plot_pp` function 
+takes the same inputs as the Q-Q Plot but it performs on rescaling of x and 
+then computes the percentiles using the `p` distribution of the *fitted* object.
+A good fit matches the abline y = 0 + 1*x. Note: The P-P plot tends to be more
+sensitive in the middle of the distribution. 
+
+```{r ppplot}
+plot_pp(x, multipleFits) +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
