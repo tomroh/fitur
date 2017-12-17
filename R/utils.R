@@ -109,16 +109,15 @@ gen_dist_fun <- function(f, parameters, ...) {
     do.call(f, c(list(...), parameters))
 }
 
-
 #' Q-Q Plot
 #'
 #' @param x
 #'
-#' numeric sample data
+#' numeric vector of sample data
 #'
 #' @param fits
 #'
-#' a list object from produced from fit_univariate, fit_empirical, or
+#' a list object produced from fit_univariate, fit_empirical, or
 #' fit_univariate_man
 #'
 #' @return
@@ -136,8 +135,8 @@ gen_dist_fun <- function(f, parameters, ...) {
 #' fits <- lapply(dists, fit_univariate, x = x)
 #' plot_qq(x, fits)
 plot_qq <- function(x, fits) {
-
   theorQuant <- lapply(fits, function(fit) {
+    # if(pmatch(c('d', 'p', 'q', 'r', 'parameters'), testNames))
     probs <- 1:length(x)/(length(x) + 1)
     data.frame(distribution = names(fit)[3],
                theoretical = sort(fit[[3]](probs)),
@@ -152,4 +151,48 @@ plot_qq <- function(x, fits) {
                    color = distribution)) +
     geom_abline(slope = 1,
                 color = 'black')
+}
+
+#' P-P Plot
+#'
+#' @param x
+#'
+#' numeric vector of sample data
+#'
+#' @param fits
+#'
+#' a list object produced from fit_univariate, fit_empirical, or
+#' fit_univariate_man
+#'
+#' @return
+#'
+#' ggplot of percentile-percentile comparison of theoretical distribution
+#'
+#' @import ggplot2
+#'
+#' @export
+#'
+#' @examples
+#' set.seed(37)
+#' x <- rgamma(10000, 5)
+#' dists <- c('gamma', 'lnorm', 'weibull')
+#' fits <- lapply(dists, fit_univariate, x = x)
+#' plot_pp(x, fits)
+plot_pp <- function(x, fits) {
+  probs <- 1:length(x)/(length(x) + 1)
+  theorPerc <- lapply(fits, function(fit) {
+    data.frame(distribution = names(fit)[2],
+               theoretical = sort(fit[[2]](sort(x))),
+               stringsAsFactors = FALSE)
+  })
+  theorPerc <- do.call('rbind.data.frame', theorPerc)
+  pp <- data.frame(sample = rep(probs, 3),
+                   theorPerc)
+  ggplot(pp) +
+    geom_point(aes(x = theoretical, y = sample, color = distribution)) +
+    geom_abline(slope = 1,
+                color = 'black') +
+    scale_color_manual(values = c('blue', 'red', 'yellow')) +
+    theme_bw() +
+    theme(panel.grid = element_blank())
 }

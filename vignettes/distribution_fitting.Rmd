@@ -1,10 +1,10 @@
 ---
-title: "Fitting Distributions"
+title: "Diagnostic Plots for Fitting Distributions"
 author: "Thomas Roh"
-date: "February 13, 2017"
+date: "December 17, 2017"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Fitting Distributions}
+  %\VignetteIndexEntry{Diagnostic Plots for Fitting Distributions}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
@@ -15,21 +15,13 @@ library(fitur)
 library(ggplot2)
 ```
 
-## Motivation
-
-## Summary Statistics
-
-kurtosis - shape of the distibutions tails, skewedness
-moments
-histogram
 
 ```{r stats}
 set.seed(438)
-x <- rweibull(10000, 5)
-sumStats <- summarize_stats(x)
+x <- rweibull(10000, shape = 5, scale = 1)
 ```
 
-### Histogram
+## Histogram
 
 ```{r histPlot}
 dt <- data.frame(x)
@@ -43,9 +35,7 @@ g
 ```
 
 
-## Diagnostic Plots
-
-### Histogram vs Density Plot
+## Histogram vs Density Plot
 
 ```{r densPlot}
 dists <- c('gamma', 'lnorm', 'weibull')
@@ -58,40 +48,21 @@ for (i in 1:length(multipleFits)) {
                   size = 1)
 }
 g +
-  scale_color_manual(name = "distribution",
-                     values = cols, 
-                     breaks = paste0('d', dists))
+  scale_color_discrete(name = "distribution",
+                     #values = cols, 
+                     breaks = dists,
+                     labels = paste0('d', dists))
 ```
 
-### Q-Q Plot
+## Q-Q Plot
 
 ```{r qqplot}
 plot_qq(x, multipleFits)
 ```
 
-### P-P Plot
+## P-P Plot
 
 ```{r ppplot}
-probs <- 1:length(x)/(length(x) + 1)
-theorPerc <- lapply(multipleFits, function(fit) {
-  data.frame(distribution = names(fit)[2],
-             theoretical = sort(fit[[2]](sort(x))),
-             stringsAsFactors = FALSE)
-})
-theorPerc <- do.call('rbind.data.frame', theorPerc)
-pp <- data.frame(sample = rep(probs, 3), 
-                 theorPerc)
-
-ggplot(pp) +
-  geom_point(aes(x = theoretical, y = sample, color = distribution)) +
-  geom_abline(slope = 1,
-              color = 'black') +
-  scale_color_manual(values = c('blue', 'red', 'yellow')) +
-  theme_bw() +
-  theme(panel.grid = element_blank())
+plot_pp(x, multipleFits)
 ```
 
-
-## Goodness of Fit
-
-ks test
