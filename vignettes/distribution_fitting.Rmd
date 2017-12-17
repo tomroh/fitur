@@ -10,7 +10,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, fig.height = 5, fig.width = 7)
 library(fitur)
 library(ggplot2)
 ```
@@ -29,7 +29,9 @@ x <- rweibull(10000, 5)
 sumStats <- summarize_stats(x)
 ```
 
-```{r}
+### Histogram
+
+```{r histPlot}
 dt <- data.frame(x)
 nbins <- 30
 g <- ggplot(dt, aes(x)) +
@@ -45,7 +47,7 @@ g
 
 ### Histogram vs Density Plot
 
-```{r}
+```{r densPlot}
 dists <- c('gamma', 'lnorm', 'weibull')
 cols <- c('red', 'blue', 'yellow')
 multipleFits <- lapply(dists, fit_univariate, x = x)
@@ -61,33 +63,17 @@ g +
                      breaks = paste0('d', dists))
 ```
 
-# Q-Q Plot
+### Q-Q Plot
 
 ```{r qqplot}
-theorQuant <- lapply(multipleFits, function(fit) {
-  probs <- 1:length(x)/(length(x) + 1)
-  data.frame(distribution = names(fit)[3],
-             theoretical = sort(fit[[3]](probs)),
-             stringsAsFactors = FALSE)
-})
-theorQuant <- do.call('rbind.data.frame', theorQuant)
-qq <- data.frame(sample = rep(sort(x), 3), 
-                 theorQuant)
-
-ggplot(qq) +
-  geom_point(aes(x = theoretical, y = sample, color = distribution)) +
-  geom_abline(slope = 1,
-              color = 'black') +
-  scale_color_manual(values = c('blue', 'red', 'yellow')) +
-  theme_bw() +
-  theme(panel.grid = element_blank())
+plot_qq(x, multipleFits)
 ```
 
-pplot
+### P-P Plot
 
-```{r}
+```{r ppplot}
+probs <- 1:length(x)/(length(x) + 1)
 theorPerc <- lapply(multipleFits, function(fit) {
-  probs <- 1:length(x)/(length(x) + 1)
   data.frame(distribution = names(fit)[2],
              theoretical = sort(fit[[2]](sort(x))),
              stringsAsFactors = FALSE)
@@ -109,5 +95,3 @@ ggplot(pp) +
 ## Goodness of Fit
 
 ks test
-
-## Scaling

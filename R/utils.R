@@ -108,3 +108,48 @@ gen_dist_fun <- function(f, parameters, ...) {
   function(...)
     do.call(f, c(list(...), parameters))
 }
+
+
+#' Q-Q Plot
+#'
+#' @param x
+#'
+#' numeric sample data
+#'
+#' @param fits
+#'
+#' a list object from produced from fit_univariate, fit_empirical, or
+#' fit_univariate_man
+#'
+#' @return
+#'
+#' ggplot of quantile-quantile comparison of theoretical distribution
+#'
+#' @import ggplot2
+#'
+#' @export
+#'
+#' @examples
+#' set.seed(37)
+#' x <- rgamma(10000, 5)
+#' dists <- c('gamma', 'lnorm', 'weibull')
+#' fits <- lapply(dists, fit_univariate, x = x)
+#' plot_qq(x, fits)
+plot_qq <- function(x, fits) {
+
+  theorQuant <- lapply(fits, function(fit) {
+    probs <- 1:length(x)/(length(x) + 1)
+    data.frame(distribution = names(fit)[3],
+               theoretical = sort(fit[[3]](probs)),
+               stringsAsFactors = FALSE)
+  })
+  theorQuant <- do.call('rbind.data.frame', theorQuant)
+  qq <- data.frame(sample = rep(sort(x), length(fits)),
+                   theorQuant)
+  ggplot(qq) +
+    geom_point(aes(x = theoretical,
+                   y = sample,
+                   color = distribution)) +
+    geom_abline(slope = 1,
+                color = 'black')
+}
