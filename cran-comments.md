@@ -1,9 +1,9 @@
 ## Test environments
 
-* Ubuntu 14.04, R 3.4.1 (on travis-ci)
-* OS X, R 3.4.1 (on travis-ci)
+* Ubuntu 14.04, R 3.4.2 (on travis-ci)
+* OS X, R 3.4.2 (on travis-ci)
 * win-builder (devel and release)
-* Windows 10 Pro (local)
+* Windows 10 Pro, R 3.4.3 (local)
 
 ## R CMD check results
 
@@ -11,7 +11,8 @@ There were no ERRORs or WARNINGs.
 
 0 errors | 0 warnings | 1 notes
 
-* The note is because there is a new maintainer email.
+* Undefined global functions or variables: distribution theoretical, which is 
+due to the ggplot2 package using NSE
 
 ## There are no downstream dependencies
 
