@@ -29,3 +29,5 @@
 # pexp(1, rate)
 # qexp(.5, rate)
 # rexp(100, rate)
+# cumsum(ddist), pdist
+# qdist(pdist(x) == x

@@ -186,13 +186,14 @@ plot_pp <- function(x, fits) {
                stringsAsFactors = FALSE)
   })
   theorPerc <- do.call('rbind.data.frame', theorPerc)
-  pp <- data.frame(sample = rep(probs, 3),
+  pp <- data.frame(sample = rep(probs, length(fits)),
                    theorPerc)
   ggplot(pp) +
-    geom_point(aes(x = theoretical, y = sample, color = distribution)) +
+    geom_point(aes(x = theoretical,
+                   y = sample,
+                   color = distribution)) +
     geom_abline(slope = 1,
                 color = 'black') +
-    scale_color_manual(values = c('blue', 'red', 'yellow')) +
     theme_bw() +
     theme(panel.grid = element_blank())
 }
