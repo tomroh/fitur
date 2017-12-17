@@ -1,5 +1,5 @@
 language: r
-sudo: false
+sudo: true
 cache: packages
 
 os:
@@ -8,7 +8,7 @@ os:
 
 r:
 - release
-- oldrelease
+- oldrel
 - devel
 
 notifications:
