@@ -11,8 +11,10 @@ There were no ERRORs or WARNINGs.
 
 0 errors | 0 warnings | 1 notes
 
-* Undefined global functions or variables: distribution theoretical, which is 
-due to the ggplot2 package using NSE
+* One note has been fixed where certain variables names were undefined in the
+global scope.
+
+* The other note is due to spelling which is not true.
 
 ## There are no downstream dependencies
 
