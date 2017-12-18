@@ -14,7 +14,7 @@ There were no ERRORs or WARNINGs.
 * One note has been fixed where certain variables names were undefined in the
 global scope.
 
-* The other note is due to spelling which is not true.
+* The other note is due to spelling error in DESCRIPTIONS which is not true.
 
 ## There are no downstream dependencies
 
