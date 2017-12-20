@@ -39,6 +39,8 @@ summarize_stats <- function(x) {
 #'
 #' list of family functions for d, p, q, r, and parameters
 #'
+#' @import stats
+#'
 #' @export
 #'
 #' @examples
