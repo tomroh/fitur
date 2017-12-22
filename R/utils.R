@@ -27,9 +27,9 @@ summarize_stats <- function(x) {
 
 #' Fit Univariate Distributions by Specifying Parameters
 #'
-#' @param family
+#' @param distribution
 #'
-#' distribution family character name
+#' distribution character name
 #'
 #' @param parameters
 #'
@@ -37,7 +37,7 @@ summarize_stats <- function(x) {
 #'
 #' @return
 #'
-#' list of family functions for d, p, q, r, and parameters
+#' list of distribution functions for d, p, q, r, and parameters
 #'
 #' @import stats
 #'
@@ -50,9 +50,9 @@ summarize_stats <- function(x) {
 #' set.seed(5)
 #' m2 <- mean(rnorm(100000, 2, 5))
 #' identical(m1, m2)
-fit_univariate_man <- function(family, parameters) {
+fit_univariate_man <- function(distribution, parameters) {
 
-  type <- paste0(c('d', 'p', 'q', 'r'), family)
+  type <- paste0(c('d', 'p', 'q', 'r'), distribution)
   funs <- lapply(type, function(type) {
     match.fun(type)
   })
@@ -198,4 +198,55 @@ plot_pp <- function(x, fits) {
                 color = 'black') +
     theme_bw() +
     theme(panel.grid = element_blank())
+}
+
+#' Density Comparision Plot
+#'
+#' @param x
+#'
+#' numeric vector of sample data
+#'
+#' @param fits
+#'
+#' a list object produced from fit_univariate, fit_empirical, or
+#' fit_univariate_man
+#'
+#' @param nbins
+#'
+#' number of bins for histogram
+#'
+#' @return
+#'
+#' ggplot of empirical histogram of x compared to theoretical density
+#' distributions
+#'
+#' @export
+#'
+#' @examples
+#' set.seed(37)
+#' x <- rgamma(10000, 5)
+#' dists <- c('gamma', 'lnorm', 'weibull')
+#' fits <- lapply(dists, fit_univariate, x = x)
+#' plot_density(x, fits, 30)
+plot_density <- function(x, fits, nbins) {
+
+  df <- data.frame(x = x)
+  g <- ggplot(df, aes(x)) +
+    geom_histogram(aes(y = ..density..),
+                   bins = nbins,
+                   fill = NA,
+                   color = "black") +
+    theme_bw() +
+    theme(panel.grid = element_blank())
+
+  ddists <- sapply(fits, function(fit) names(fit)[1])
+  for (i in 1:length(fits)) {
+    g <- g +
+      stat_function(fun = fits[[i]][[1]],
+                    aes_(color = ddists[i]),
+                    size = 1)
+  }
+  g +
+    scale_color_discrete(name = "distribution",
+                         breaks = ddists)
 }

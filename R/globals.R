@@ -1,2 +1,4 @@
 globalVariables(c("distribution",
-                  "theoretical"))
+                  "theoretical",
+                  "..density..")
+                )
