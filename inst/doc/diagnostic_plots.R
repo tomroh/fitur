@@ -19,19 +19,8 @@ g
 
 ## ----densPlot------------------------------------------------------------
 dists <- c('gamma', 'lnorm', 'weibull')
-cols <- c('red', 'blue', 'yellow')
 multipleFits <- lapply(dists, fit_univariate, x = x)
-for (i in 1:length(multipleFits)) {
-  g <- g +
-    stat_function(fun = multipleFits[[i]][[1]],
-                  aes_(color = dists[i]),
-                  size = 1)
-}
-g +
-  scale_color_discrete(name = "distribution",
-                     #values = cols, 
-                     breaks = dists,
-                     labels = paste0('d', dists))
+plot_density(x, multipleFits, 30)
 
 ## ----qqplot--------------------------------------------------------------
 plot_qq(x, multipleFits) +
