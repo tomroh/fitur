@@ -1,6 +1,6 @@
 # fitur
 
-The goal of fitur is to provide a wrapper function to take numeric data and fit the parameters to the specified distribution. The function returns an object that has the d, p, q, r family family functions with the fitted parameters.
+Wrapper for computing parameters for univariate distributions using MLE. It creates an object that stores d, p, q, r functions as well as parameters and statistics for diagnostics. Currently supports automated fitting from base and actuar packages. A manually fitting distribution fitting function is included to support directly specifying parameters for any distribution from ancillary packages.
 
 ## Installation
 
@@ -13,7 +13,7 @@ devtools::install_github("tomroh/fitur")
 
 ## Example
 
-This is a basic example to fit a poisson distribution with new parameters and return the functions for it.
+This is a basic example to fit a poisson distribution with estimated parameters and return the functions for it.
 
 ```R
 set.seed(562)
