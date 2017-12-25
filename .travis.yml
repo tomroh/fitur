@@ -11,6 +11,11 @@ r:
 - oldrel
 - devel
 
+matrix:
+  exclude:
+  - os: osx
+    r: devel
+
 notifications:
   email:
     - thomas@roh.engineering.com

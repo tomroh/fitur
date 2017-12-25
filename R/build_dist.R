@@ -1,17 +1,17 @@
 #' Build Distribution Functions
 #'
 #' A wrapper for building function families given
-#' a numeric vector and the distribution family
+#' a numeric vector and the distribution
 #'
 #' @param x
 #'
 #' numeric vector
 #'
-#' @param family
+#' @param distribution
 #'
-#' distribution family character name
+#' distribution character name
 #'
-#' @return list of family functions for d, p, q, r, and parameters
+#' @return list of distribution functions for d, p, q, r, and parameters
 #'
 #' @import fitdistrplus actuar
 #'
@@ -32,18 +32,18 @@
 #' fittedDists$parameters
 
 
-build_dist <- function(x, family) {
+build_dist <- function(x, distribution) {
   # generate list of distribution functions
-  type <- paste0(c('d', 'p', 'q', 'r'), family)
+  type <- paste0(c('d', 'p', 'q', 'r'), distribution)
   funs <- lapply(type, function(type) {
     match.fun(type)
   })
   names(funs) <- type
 
-  if (family %in% 'dunif') {
+  if (distribution %in% 'dunif') {
     parameters <- c(min = min(x), max = max(x))
   } else {
-    parameters <- fitdist(data = x, distr = family)[['estimate']]
+    parameters <- fitdist(data = x, distr = distribution)[['estimate']]
   }
   funs <- lapply(setNames(funs, names(funs)), gen_dist_fun,
          parameters = parameters)
