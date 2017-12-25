@@ -1,3 +1,9 @@
+# fitur 0.5.
+
+* Added plot_density function for comparison pdfs of fitted functions
+
+* Updated argument naming conventions 
+
 # fitur 0.5.20
 
 * DESCRIPTION summary has been updated
