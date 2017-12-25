@@ -250,3 +250,7 @@ plot_density <- function(x, fits, nbins) {
     scale_color_discrete(name = "distribution",
                          breaks = ddists)
 }
+
+simulate_ks <- function() {
+
+}
