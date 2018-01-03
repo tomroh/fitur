@@ -1,4 +1,4 @@
-#' Provide Summary Stats for Inspecting Numeric Data
+#' Calculate moments of a numeric vector
 #'
 #' @param x
 #'
@@ -14,13 +14,11 @@
 #'
 #' @examples
 #' x <- rexp(1000, 2)
-#' summarize_stats(x)
-summarize_stats <- function(x) {
+#' calc_moments(x)
+calc_moments <- function(x) {
   stopifnot(is.numeric(x))
-  c(quantile(x, probs = seq(0, 1, .01)),
-    mean = mean(x),
+  c(mean = mean(x),
     sd = sd(x),
-    mode = Mode(x),
     skewness = skewness(x),
     kurtosis = kurtosis(x))
 }
