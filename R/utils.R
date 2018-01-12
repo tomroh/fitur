@@ -194,7 +194,6 @@ plot_pp <- function(x, fits) {
                    color = distribution)) +
     geom_abline(slope = 1,
                 color = 'black') +
-    theme_bw() +
     theme(panel.grid = element_blank())
 }
 
@@ -234,7 +233,6 @@ plot_density <- function(x, fits, nbins) {
                    bins = nbins,
                    fill = NA,
                    color = "black") +
-    theme_bw() +
     theme(panel.grid = element_blank())
 
   ddists <- sapply(fits, function(fit) names(fit)[1])
@@ -248,7 +246,21 @@ plot_density <- function(x, fits, nbins) {
     scale_color_discrete(name = "distribution",
                          breaks = ddists)
 }
-
-simulate_ks <- function() {
-
-}
+# x <- rgamma(100, 5)
+# fit <- fit_univariate(x, distribution = 'gamma')
+# simulate_ks <- function(x, fit, reps) {
+#
+#   samples <- replicate(reps,
+#                        expr = sort(fit[[4]](length(x))),
+#                        simplify = FALSE)
+#   ksTests <- vapply(samples,
+#                     FUN = function(sample) ks.test(x, sample)[['statistic']],
+#                     FUN.VALUE = vector(length(samples), mode = 'numeric'))
+#   Dthreshold <- ks.test(x, fit[[2]])[['statistic']]
+#
+#   ksTests <- sapply(X = samples,
+#                     FUN = function(sample) ks.test(x, sample)[['statistic']])
+#   sum(ksTests >= Dthreshold)/
+#
+#
+# }
