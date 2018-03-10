@@ -11,9 +11,6 @@ There were no ERRORs or WARNINGs.
 
 0 errors | 0 warnings | 1 notes
 
-* One note has been fixed where certain variables names were undefined in the
-global scope.
-
 * The other note is due to spelling error in DESCRIPTIONS which is not true.
 
 ## There are no downstream dependencies
