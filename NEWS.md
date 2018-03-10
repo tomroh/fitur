@@ -1,6 +1,6 @@
-# fitur 0.5.
+# fitur 0.5.25
 
-* 
+* Fixed appearance of plots
 
 * Added plot_density function for comparison pdfs of fitted functions
 
