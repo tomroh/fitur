@@ -74,17 +74,6 @@ fit_empirical <- function(x) {
   }
 }
 
-#' Fit Empirical Discrete Distribution Family
-#'
-#' @param x
-#'
-#' integer vector
-#'
-#' @return
-#'
-#' list of family functions for d, p, q, r, and parameters
-#'
-
 fit_empirical_discrete <- function(x) {
   stopifnot(is.integer(x))
   x <- sort(x)
@@ -114,18 +103,6 @@ fit_empirical_discrete <- function(x) {
        rempDis = r,
        parameters = probs)
 }
-
-#' Fit Continous Empirical Distribution Family
-#'
-#' @param x
-#'
-#' numeric vector
-#'
-#' @return
-#'
-#' list of family functions for d, p, q, r, and parameters
-#'
-#' @import stats
 
 fit_empirical_continuous <- function(x) {
   stopifnot(is.double(x))

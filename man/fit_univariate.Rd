@@ -4,17 +4,18 @@
 \alias{fit_univariate}
 \title{Fit Univariate Distribution}
 \usage{
-fit_univariate(x, family, type = "continuous")
+fit_univariate(x, distribution, type = "continuous")
 }
 \arguments{
 \item{x}{numeric vector}
 
-\item{family}{character name of distribution family}
+\item{distribution}{character name of distribution}
 
 \item{type}{discrete or continuous data}
 }
 \value{
-a fitted function family, MLE for probability distributions, custom fit for empirical (see functions)
+a fitted list object of d, p, q, r distribution functions and parameters,
+MLE for probability distributions, custom fit for empirical
 }
 \description{
 Fit Univariate Distribution

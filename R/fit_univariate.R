@@ -4,9 +4,9 @@
 #'
 #' numeric vector
 #'
-#' @param family
+#' @param distribution
 #'
-#' character name of distribution family
+#' character name of distribution
 #'
 #' @param type
 #'
@@ -14,7 +14,8 @@
 #'
 #' @return
 #'
-#' a fitted function family, MLE for probability distributions, custom fit for empirical (see functions)
+#' a fitted list object of d, p, q, r distribution functions and parameters,
+#' MLE for probability distributions, custom fit for empirical
 #'
 #' @export
 #'
@@ -59,7 +60,7 @@
 #' summary(fitted$rweibull(100))
 #' # estimated parameters from MLE
 #' fitted$parameters
-fit_univariate <- function(x, family, type = 'continuous') {
+fit_univariate <- function(x, distribution, type = 'continuous') {
 
   stopifnot(is.numeric(x))
   stopifnot(type %in% c('discrete', 'continuous'))
@@ -70,23 +71,23 @@ fit_univariate <- function(x, family, type = 'continuous') {
                      'norm', 'unif', 'weibull', 'llogis', 'logis',
                      'invweibull', 'invgamma')
 
-  if (family %in% 'empirical') {
+  if (distribution %in% 'empirical') {
     fit_empirical(x)
   } else if (type %in% 'discrete') {
     stopifnot(is.integer(x))
-    if (family %in% discreteDists) {
-      return(build_dist(x, family))
+    if (distribution %in% discreteDists) {
+      return(build_dist(x, distribution))
     }
     else {
-      message("family not in supported discrete distributions")
+      message("distribution not in supported discrete distributions")
     }
   } else if (type %in% 'continuous') {
     stopifnot(is.double(x))
-    if (family %in% continuousDists) {
-      return(build_dist(x, family))
+    if (distribution %in% continuousDists) {
+      return(build_dist(x, distribution))
     }
     else {
-      message("family not in supported continuous distributions")
+      message("distribution not in supported continuous distributions")
     }
   }
 }

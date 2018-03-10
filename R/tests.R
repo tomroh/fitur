@@ -31,3 +31,12 @@
 # rexp(100, rate)
 # cumsum(ddist), pdist
 # qdist(pdist(x) == x
+
+# probs <- seq(0, 1, .01)
+# pnorm(probs)
+# all.equal(probs, qnorm(pnorm(probs)))
+# sum(dnorm(probs))
+# pdf <- density(rnorm(100000000))
+# all.equal(dnorm(pdf$x), pdf$y)
+# assertthat::are_equal(dnorm(pdf$x), pdf$y)
+# View(data.frame(dnorm(pdf$x), pdf$y))

@@ -4,19 +4,19 @@
 \alias{build_dist}
 \title{Build Distribution Functions}
 \usage{
-build_dist(x, family)
+build_dist(x, distribution)
 }
 \arguments{
 \item{x}{numeric vector}
 
-\item{family}{distribution family character name}
+\item{distribution}{distribution character name}
 }
 \value{
-list of family functions for d, p, q, r, and parameters
+list of distribution functions for d, p, q, r, and parameters
 }
 \description{
 A wrapper for building function families given
-a numeric vector and the distribution family
+a numeric vector and the distribution
 }
 \examples{
 fittedDists <- build_dist(rpois(100,5), 'pois')

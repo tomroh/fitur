@@ -4,15 +4,15 @@
 \alias{fit_univariate_man}
 \title{Fit Univariate Distributions by Specifying Parameters}
 \usage{
-fit_univariate_man(family, parameters)
+fit_univariate_man(distribution, parameters)
 }
 \arguments{
-\item{family}{distribution family character name}
+\item{distribution}{distribution character name}
 
 \item{parameters}{named vector of parameters to set}
 }
 \value{
-list of family functions for d, p, q, r, and parameters
+list of distribution functions for d, p, q, r, and parameters
 }
 \description{
 Fit Univariate Distributions by Specifying Parameters

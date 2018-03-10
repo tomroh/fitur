@@ -1,4 +1,4 @@
-#' Provide Summary Stats for Inspecting Numeric Data
+#' Calculate moments of a numeric vector
 #'
 #' @param x
 #'
@@ -14,22 +14,20 @@
 #'
 #' @examples
 #' x <- rexp(1000, 2)
-#' summarize_stats(x)
-summarize_stats <- function(x) {
+#' calc_moments(x)
+calc_moments <- function(x) {
   stopifnot(is.numeric(x))
-  c(quantile(x, probs = seq(0, 1, .01)),
-    mean = mean(x),
+  c(mean = mean(x),
     sd = sd(x),
-    mode = Mode(x),
     skewness = skewness(x),
     kurtosis = kurtosis(x))
 }
 
 #' Fit Univariate Distributions by Specifying Parameters
 #'
-#' @param family
+#' @param distribution
 #'
-#' distribution family character name
+#' distribution character name
 #'
 #' @param parameters
 #'
@@ -37,7 +35,9 @@ summarize_stats <- function(x) {
 #'
 #' @return
 #'
-#' list of family functions for d, p, q, r, and parameters
+#' list of distribution functions for d, p, q, r, and parameters
+#'
+#' @import stats
 #'
 #' @export
 #'
@@ -48,9 +48,9 @@ summarize_stats <- function(x) {
 #' set.seed(5)
 #' m2 <- mean(rnorm(100000, 2, 5))
 #' identical(m1, m2)
-fit_univariate_man <- function(family, parameters) {
+fit_univariate_man <- function(distribution, parameters) {
 
-  type <- paste0(c('d', 'p', 'q', 'r'), family)
+  type <- paste0(c('d', 'p', 'q', 'r'), distribution)
   funs <- lapply(type, function(type) {
     match.fun(type)
   })
@@ -194,6 +194,73 @@ plot_pp <- function(x, fits) {
                    color = distribution)) +
     geom_abline(slope = 1,
                 color = 'black') +
-    theme_bw() +
     theme(panel.grid = element_blank())
 }
+
+#' Density Comparision Plot
+#'
+#' @param x
+#'
+#' numeric vector of sample data
+#'
+#' @param fits
+#'
+#' a list object produced from fit_univariate, fit_empirical, or
+#' fit_univariate_man
+#'
+#' @param nbins
+#'
+#' number of bins for histogram
+#'
+#' @return
+#'
+#' ggplot of empirical histogram of x compared to theoretical density
+#' distributions
+#'
+#' @export
+#'
+#' @examples
+#' set.seed(37)
+#' x <- rgamma(10000, 5)
+#' dists <- c('gamma', 'lnorm', 'weibull')
+#' fits <- lapply(dists, fit_univariate, x = x)
+#' plot_density(x, fits, 30)
+plot_density <- function(x, fits, nbins) {
+
+  df <- data.frame(x = x)
+  g <- ggplot(df, aes(x)) +
+    geom_histogram(aes(y = ..density..),
+                   bins = nbins,
+                   fill = NA,
+                   color = "black") +
+    theme(panel.grid = element_blank())
+
+  ddists <- sapply(fits, function(fit) names(fit)[1])
+  for (i in 1:length(fits)) {
+    g <- g +
+      stat_function(fun = fits[[i]][[1]],
+                    aes_(color = ddists[i]),
+                    size = 1)
+  }
+  g +
+    scale_color_discrete(name = "distribution",
+                         breaks = ddists)
+}
+# x <- rgamma(100, 5)
+# fit <- fit_univariate(x, distribution = 'gamma')
+# simulate_ks <- function(x, fit, reps) {
+#
+#   samples <- replicate(reps,
+#                        expr = sort(fit[[4]](length(x))),
+#                        simplify = FALSE)
+#   ksTests <- vapply(samples,
+#                     FUN = function(sample) ks.test(x, sample)[['statistic']],
+#                     FUN.VALUE = vector(length(samples), mode = 'numeric'))
+#   Dthreshold <- ks.test(x, fit[[2]])[['statistic']]
+#
+#   ksTests <- sapply(X = samples,
+#                     FUN = function(sample) ks.test(x, sample)[['statistic']])
+#   sum(ksTests >= Dthreshold)/
+#
+#
+# }

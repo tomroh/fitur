@@ -35,4 +35,4 @@ knitr::opts_chunk$set(echo = TRUE)
       + Lognormal (lnorm)
       + Normal (norm)
       + Uniform (unif)
-      + Weibull
+      + Weibull (weibull)
