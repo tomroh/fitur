@@ -91,11 +91,11 @@ fit_empirical_discrete <- function(x) {
   })
 
   q <- Vectorize(function(p) {
-    if (p < min(values) | p > max(values)) {
+    if (p < 0 | p > 1) {
       warning("NaNs produced", call. = FALSE)
       NaN
     } else {
-      max(values[cumsum(probs) <= p])
+      max(values[1], values[cumsum(probs) <= p])
     }
   })
 
@@ -136,11 +136,11 @@ fit_empirical_continuous <- function(x) {
   })
 
   q <- Vectorize(function(p) {
-    if (p < min(mids) | p > max(mids)) {
+    if (p < 0 | p > 1) {
       warning("NaNs produced", call. = FALSE)
       NaN
     } else {
-      max(mids[cumsum(probs) <= p])
+      max(mids[1], mids[cumsum(probs) <= p])
     }
   })
 

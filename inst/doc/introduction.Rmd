@@ -117,8 +117,8 @@ plot(x = 0:10,
      xlab = 'x',
      ylab = 'pempCont')
 # quantile function
-plot(x = seq(.5, 1, .1),
-     y = empCont$qempCont(seq(.5, 1, .1)),
+plot(x = seq(.1, 1, by = .1),
+     y = empCont$qempCont(seq(.1, 1, by = .1)),
      type = 'p',
      xlab = 'x',
      ylab = 'qempCont')
