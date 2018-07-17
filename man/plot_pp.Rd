@@ -19,9 +19,11 @@ ggplot of percentile-percentile comparison of theoretical distribution
 P-P Plot
 }
 \examples{
+library(ggplot2)
 set.seed(37)
 x <- rgamma(10000, 5)
 dists <- c('gamma', 'lnorm', 'weibull')
 fits <- lapply(dists, fit_univariate, x = x)
-plot_pp(x, fits)
+plot_pp(x, fits) +
+theme_bw()
 }

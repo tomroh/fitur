@@ -22,9 +22,11 @@ distributions
 Density Comparison Plot
 }
 \examples{
+library(ggplot2)
 set.seed(37)
 x <- rgamma(10000, 5)
 dists <- c('gamma', 'lnorm', 'weibull')
 fits <- lapply(dists, fit_univariate, x = x)
-plot_density(x, fits, 30)
+plot_density(x, fits, 30) +
+theme_bw()
 }
