@@ -19,9 +19,11 @@ ggplot of quantile-quantile comparison of theoretical distribution
 Q-Q Plot
 }
 \examples{
+library(ggplot2)
 set.seed(37)
 x <- rgamma(10000, 5)
 dists <- c('gamma', 'lnorm', 'weibull')
 fits <- lapply(dists, fit_univariate, x = x)
-plot_qq(x, fits)
+plot_qq(x, fits) +
+theme_bw()
 }

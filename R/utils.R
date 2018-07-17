@@ -58,11 +58,13 @@ Mode <- function(x) {
 #' @export
 #'
 #' @examples
+#' library(ggplot2)
 #' set.seed(37)
 #' x <- rgamma(10000, 5)
 #' dists <- c('gamma', 'lnorm', 'weibull')
 #' fits <- lapply(dists, fit_univariate, x = x)
-#' plot_qq(x, fits)
+#' plot_qq(x, fits) +
+#' theme_bw()
 plot_qq <- function(x, fits) {
   theorQuant <- lapply(fits, function(fit) {
     # if(pmatch(c('d', 'p', 'q', 'r', 'parameters'), testNames))
@@ -102,11 +104,13 @@ plot_qq <- function(x, fits) {
 #' @export
 #'
 #' @examples
+#' library(ggplot2)
 #' set.seed(37)
 #' x <- rgamma(10000, 5)
 #' dists <- c('gamma', 'lnorm', 'weibull')
 #' fits <- lapply(dists, fit_univariate, x = x)
-#' plot_pp(x, fits)
+#' plot_pp(x, fits) +
+#' theme_bw()
 plot_pp <- function(x, fits) {
   probs <- 1:length(x)/(length(x) + 1)
   theorPerc <- lapply(fits, function(fit) {
@@ -149,11 +153,13 @@ plot_pp <- function(x, fits) {
 #' @export
 #'
 #' @examples
+#' library(ggplot2)
 #' set.seed(37)
 #' x <- rgamma(10000, 5)
 #' dists <- c('gamma', 'lnorm', 'weibull')
 #' fits <- lapply(dists, fit_univariate, x = x)
-#' plot_density(x, fits, 30)
+#' plot_density(x, fits, 30) +
+#' theme_bw()
 plot_density <- function(x, fits, nbins) {
 
   df <- data.frame(x = x)
