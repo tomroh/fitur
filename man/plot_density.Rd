@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{plot_density}
 \alias{plot_density}
-\title{Density Comparision Plot}
+\title{Density Comparison Plot}
 \usage{
 plot_density(x, fits, nbins)
 }
@@ -19,7 +19,7 @@ ggplot of empirical histogram of x compared to theoretical density
 distributions
 }
 \description{
-Density Comparision Plot
+Density Comparison Plot
 }
 \examples{
 library(ggplot2)
