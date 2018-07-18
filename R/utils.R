@@ -130,7 +130,7 @@ plot_pp <- function(x, fits) {
     theme(panel.grid = element_blank())
 }
 
-#' Density Comparision Plot
+#' Density Comparison Plot
 #'
 #' @param x
 #'

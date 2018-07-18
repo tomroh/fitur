@@ -9,9 +9,7 @@
 
 There were no ERRORs or WARNINGs.
 
-0 errors | 0 warnings | 1 notes
-
-* The other note is due to spelling error in DESCRIPTIONS which is not true.
+0 errors | 0 warnings | 0 notes
 
 ## There are no downstream dependencies
 
