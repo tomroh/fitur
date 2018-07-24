@@ -67,6 +67,7 @@ Mode <- function(x) {
 #' theme_bw()
 plot_qq <- function(x, fits) {
   theorQuant <- lapply(fits, function(fit) {
+    # is.distfun(fit)
     # if(pmatch(c('d', 'p', 'q', 'r', 'parameters'), testNames))
     probs <- 1:length(x)/(length(x) + 1)
     data.frame(distribution = names(fit)[3],
@@ -83,6 +84,8 @@ plot_qq <- function(x, fits) {
     geom_abline(slope = 1,
                 color = 'black')
 }
+# with classes implemented just check if distfun -> if so wrap in list
+# if distfuns class continue as usual
 
 #' P-P Plot
 #'

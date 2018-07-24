@@ -91,3 +91,5 @@ fit_univariate <- function(x, distribution, type = 'continuous') {
     }
   }
 }
+# use structure to turn into class "distfun"
+# think about creating hierarchiny class "distsfun"
