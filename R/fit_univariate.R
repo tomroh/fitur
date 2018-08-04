@@ -62,34 +62,22 @@
 #' fitted$parameters
 fit_univariate <- function(x, distribution, type = 'continuous') {
 
-  stopifnot(is.numeric(x))
-  stopifnot(type %in% c('discrete', 'continuous'))
-
-  # hyper, dunif, empirical
+  stopifnot(type == 'discrete' & is.integer(x) |
+            type == 'continuous' & is.double(x) |
+            type == 'empirical' & is.numeric(x))
   discreteDists <- c('geom', 'nbinom', 'pois', 'dunif')
   continuousDists <- c('exp', 'cauchy', 'gamma', 'lnorm',
                      'norm', 'unif', 'weibull', 'llogis', 'logis',
                      'invweibull', 'invgamma')
-
+  if (!distribution %in% c(discreteDists, continuousDists, 'empirical')) {
+    stop("distribution not in supported distributions")
+  }
   if (distribution %in% 'empirical') {
     fit_empirical(x)
-  } else if (type %in% 'discrete') {
-    stopifnot(is.integer(x))
-    if (distribution %in% discreteDists) {
-      return(build_dist(x, distribution))
-    }
-    else {
-      message("distribution not in supported discrete distributions")
-    }
-  } else if (type %in% 'continuous') {
-    stopifnot(is.double(x))
-    if (distribution %in% continuousDists) {
-      return(build_dist(x, distribution))
-    }
-    else {
-      message("distribution not in supported continuous distributions")
-    }
+  } else {
+    build_dist(x, distribution)
   }
+
 }
 # use structure to turn into class "distfun"
 # think about creating hierarchiny class "distsfun"

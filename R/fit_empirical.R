@@ -147,11 +147,12 @@ fit_empirical_continuous <- function(x) {
   r <- function(n) {
     sample(x = mids, size = n, prob = probs, replace = TRUE)
   }
-  list(dempCont = d,
+  structure(list(dempCont = d,
        pempCont = p,
        qempCont = q,
        rempCont= r,
-       parameters = probs)
+       parameters = probs),
+       "distfun")
 }
 
 get_interval_nums <- function(cuts) {

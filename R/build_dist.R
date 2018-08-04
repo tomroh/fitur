@@ -48,7 +48,8 @@ build_dist <- function(x, distribution) {
   funs <- lapply(setNames(funs, names(funs)), gen_dist_fun,
          parameters = parameters)
   funs[['parameters']] <- parameters
-  funs
+  structure(funs,
+            "distfun")
 }
 
 #' Fit Univariate Distributions by Specifying Parameters
@@ -96,7 +97,8 @@ fit_univariate_man <- function(distribution, parameters) {
                  gen_dist_fun,
                  parameters = parameters)
   funs[['parameters']] <- parameters
-  funs
+  structure(funs,
+            "distfun")
 
 }
 
