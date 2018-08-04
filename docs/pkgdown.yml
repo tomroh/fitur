@@ -1,8 +1,0 @@
-pandoc: 2.1.2
-pkgdown: 1.1.0
-pkgdown_sha: ~
-articles:
-  diagnostic_plots: diagnostic_plots.html
-  introduction: introduction.html
-  univariate_distributions: univariate_distributions.html
-
