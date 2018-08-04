@@ -20,7 +20,8 @@ g
 ## ----densPlot------------------------------------------------------------
 dists <- c('gamma', 'lnorm', 'weibull')
 multipleFits <- lapply(dists, fit_univariate, x = x)
-plot_density(x, multipleFits, 30)
+plot_density(x, multipleFits, 30) + theme_bw() +
+  theme(panel.grid = element_blank())
 
 ## ----qqplot--------------------------------------------------------------
 plot_qq(x, multipleFits) +
