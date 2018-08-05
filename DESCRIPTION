@@ -12,7 +12,8 @@ Imports:
     fitdistrplus,
     actuar,
     e1071,
-    ggplot2
+    ggplot2,
+    goftest
 Suggests:
     knitr, rmarkdown
 License: MIT + file LICENSE

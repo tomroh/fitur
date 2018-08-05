@@ -184,21 +184,70 @@ plot_density <- function(x, fits, nbins) {
     scale_color_discrete(name = "distribution",
                          breaks = ddists)
 }
-# x <- rgamma(100, 5)
-# fit <- fit_univariate(x, distribution = 'gamma')
-# simulate_ks <- function(x, fit, reps) {
-#
-#   samples <- replicate(reps,
-#                        expr = sort(fit[[4]](length(x))),
-#                        simplify = FALSE)
-#   ksTests <- vapply(samples,
-#                     FUN = function(sample) ks.test(x, sample)[['statistic']],
-#                     FUN.VALUE = vector(length(samples), mode = 'numeric'))
-#   Dthreshold <- ks.test(x, fit[[2]])[['statistic']]
-#
-#   ksTests <- sapply(X = samples,
-#                     FUN = function(sample) ks.test(x, sample)[['statistic']])
-#   sum(ksTests >= Dthreshold)/
-#
-#
-# }
+
+#' Wrappers to compute goodness of fit test froms distfun objects
+#'
+#' @param distfun
+#'
+#' a distfun object
+#'
+#' @param x
+#'
+#' numeric vector
+#'
+#' @param ...
+#'
+#' arguments to be passed on to test function
+#'
+#' @return
+#'
+#' goodness of fit object
+#'
+#' @export
+#'
+#' @name GOFTests
+#'
+#' @examples
+#' x <- rgamma(100, 1, 1)
+#' fit <- fit_univariate(x, 'gamma')
+#' ks_test(fit, x)
+#' ad_test(fit, x)
+#' cvm_test(fit, x)
+ks_test <- function(distfun, x, ...) {
+  UseMethod("ks_test")
+}
+
+#' @export
+ks_test.distfun <- function(distfun, x, ...) {
+  ks.test(x, distfun[[2]], ...)
+}
+
+#' @rdname GOFTests
+#'
+#' @importFrom goftest ad.test
+#'
+#' @export
+ad_test.distfun <- function(distfun, x) {
+  ad.test(x, null = distfun[[2]])
+}
+
+#' @rdname GOFTests
+#' @export
+ad_test <- function(distfun, x) {
+  UseMethod("ad_test")
+}
+
+#' @rdname GOFTests
+#'
+#' @importFrom goftest cvm.test
+#'
+#' @export
+cvm_test.distfun <- function(distfun, x) {
+  cvm.test(x, null = distfun[[2]])
+}
+
+#' @rdname GOFTests
+#' @export
+cvm_test <- function(distfun, x) {
+  UseMethod("cvm_test")
+}
