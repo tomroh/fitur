@@ -1,10 +1,10 @@
 # fitur 0.6.0
 
+* Adding continuous distribution testing functions Kolmogorov-Smirnov, Anderson-Darling, and Cramer-Von Mises
+
 * S3 methods have now been added for distfit objects
 
 * Code reformatting and cleanup
-
-* 
 
 # fitur 0.5.25
 
