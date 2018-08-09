@@ -1,3 +1,9 @@
+# fitur 0.6.1
+
+* added test function for distfun objects
+* diagnostic plots now have better checks for distfun objects and lists of
+distfun objects
+
 # fitur 0.6.0
 
 * Adding continuous distribution testing functions Kolmogorov-Smirnov, Anderson-Darling, and Cramer-Von Mises

@@ -66,9 +66,9 @@ Mode <- function(x) {
 #' plot_qq(x, fits) +
 #' theme_bw()
 plot_qq <- function(x, fits) {
+  stopifnot(is.distfun(fits) | all(sapply(fits, is.distfun)))
+  if ( is.distfun(fits) ) fits <- list(fits)
   theorQuant <- lapply(fits, function(fit) {
-    # is.distfun(fit)
-    # if(pmatch(c('d', 'p', 'q', 'r', 'parameters'), testNames))
     probs <- 1:length(x)/(length(x) + 1)
     data.frame(distribution = names(fit)[3],
                theoretical = sort(fit[[3]](probs)),
@@ -115,6 +115,8 @@ plot_qq <- function(x, fits) {
 #' plot_pp(x, fits) +
 #' theme_bw()
 plot_pp <- function(x, fits) {
+  stopifnot(is.distfun(fits) | all(sapply(fits, is.distfun)))
+  if ( is.distfun(fits) ) fits <- list(fits)
   probs <- 1:length(x)/(length(x) + 1)
   theorPerc <- lapply(fits, function(fit) {
     data.frame(distribution = names(fit)[2],
@@ -164,7 +166,8 @@ plot_pp <- function(x, fits) {
 #' plot_density(x, fits, 30) +
 #' theme_bw()
 plot_density <- function(x, fits, nbins) {
-
+  stopifnot(is.distfun(fits) | all(sapply(fits, is.distfun)))
+  if ( is.distfun(fits) ) fits <- list(fits)
   df <- data.frame(x = x)
   g <- ggplot(df, aes(x)) +
     geom_histogram(aes(y = ..density..),
@@ -250,4 +253,20 @@ cvm_test.distfun <- function(distfun, x) {
 #' @export
 cvm_test <- function(distfun, x) {
   UseMethod("cvm_test")
+}
+
+#' Test if object is a distfun object
+#'
+#' @param x
+#'
+#' an R object to be tested
+#'
+#' @return
+#'
+#' TRUE if x is a disfun object, FALSE otherwise
+#'
+#' @export
+#'
+is.distfun <- function(x) {
+  inherits(x, "distfun")
 }
