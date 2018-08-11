@@ -84,8 +84,6 @@ plot_qq <- function(x, fits) {
     geom_abline(slope = 1,
                 color = 'black')
 }
-# with classes implemented just check if distfun -> if so wrap in list
-# if distfuns class continue as usual
 
 #' P-P Plot
 #'
@@ -255,6 +253,43 @@ cvm_test <- function(distfun, x) {
   UseMethod("cvm_test")
 }
 
+#' Goodness of Fit Testing
+#'
+#' Apply all goodness of fit tests and return a data.frame with the results
+#'
+#' @param fits
+#'
+#' a list object produced from fit_univariate, fit_empirical, or
+#' fit_univariate_man
+#'
+#' @param x
+#'
+#' numeric vector of sample data
+#'
+#' @return
+#'
+#' a data.frame of test statistic results for each distribution
+#'
+#' @export
+#'
+#' @examples
+#'
+gof_tests <- function(fits, x) {
+  stopifnot(is.distfun(fits) | all(sapply(fits, is.distfun)))
+  gofTests <- setNames(c(ks_test, ad_test, cvm_test),
+                       c("ks", "ad", "cv"))
+  if ( is.distfun(fits) ) fits <- list(fits)
+  distr <- sapply(fits, function(fit) sub("^d", "", names(fit)[[1]]))
+  tests <- Map(fits, gofTests, names(gofTests), f =
+                 function(fit, gofTest, testName) {
+                   i <- data.frame(unclass(gofTest(fit, x)[c('statistic', 'p.value')]))
+                   testNames <- paste(testName,
+                                      sub("\\.", "_", names(i)), sep = "_")
+                   setNames(i, testNames)
+                 })
+  data.frame(distribution = distr, do.call('cbind', tests), row.names = NULL)
+}
+
 #' Test if object is a distfun object
 #'
 #' @param x
@@ -270,3 +305,5 @@ cvm_test <- function(distfun, x) {
 is.distfun <- function(x) {
   inherits(x, "distfun")
 }
+
+
