@@ -273,21 +273,29 @@ cvm_test <- function(distfun, x) {
 #' @export
 #'
 #' @examples
-#'
+#' set.seed(84)
+#' x <- rgamma(100, 1, 1)
+#' dists <- c('gamma', 'lnorm', 'weibull')
+#' multipleFits <- lapply(dists, fit_univariate, x = x)
+#' gof_tests(multipleFits, x)
 gof_tests <- function(fits, x) {
   stopifnot(is.distfun(fits) | all(sapply(fits, is.distfun)))
   gofTests <- setNames(c(ks_test, ad_test, cvm_test),
                        c("ks", "ad", "cv"))
   if ( is.distfun(fits) ) fits <- list(fits)
-  distr <- sapply(fits, function(fit) sub("^d", "", names(fit)[[1]]))
-  tests <- Map(fits, gofTests, names(gofTests), f =
-                 function(fit, gofTest, testName) {
-                   i <- data.frame(unclass(gofTest(fit, x)[c('statistic', 'p.value')]))
-                   testNames <- paste(testName,
-                                      sub("\\.", "_", names(i)), sep = "_")
-                   setNames(i, testNames)
-                 })
-  data.frame(distribution = distr, do.call('cbind', tests), row.names = NULL)
+  names(fits) <- sapply(fits, function(fit) sub("^d", "", names(fit)[[1]]))
+  tests <- lapply(fits, function(fit) {
+    lapply(gofTests, gof_test, fit = fit, x = x)
+  })
+  tests <- cbind(distribution = names(tests),
+                 do.call(rbind, lapply(tests, as.data.frame)),
+                 stringsAsFactors = FALSE,
+                 row.names = NULL)
+  setNames(tests, gsub("\\.", "_", names(tests)))
+}
+
+gof_test <- function(fit, gofTest, x = x) {
+  data.frame(unclass(gofTest(fit, x)[c('statistic', 'p.value')]))
 }
 
 #' Test if object is a distfun object
