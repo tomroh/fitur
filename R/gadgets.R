@@ -3,10 +3,11 @@ fitDistributionsAddin <- function() {
     gadgetTitleBar("Drag to select points"),
     miniContentPanel(
       fillRow(
-        fillCol(flex = c(NA, NA, 1),
+        fillCol(flex = c(NA, NA, 1, 1),
           selectInput('distributions', 'Distributions',
                       choices = c('Weibull', 'Lognormal')),
           numericInput('data', label = 'Data', value = 1),
+          DTOutput('gofTable'),
           plotOutput('ppPlot', height = '100%')
         ),
         fillCol(flex = c(NA, 1, 1),
@@ -26,8 +27,14 @@ fitDistributionsAddin <- function() {
       dists <- c('gamma', 'lnorm', 'weibull')
       fits <- lapply(dists, fit_univariate, x = x)
     })
-    output$gofTable <- renderTable({
-      gof_tests()
+    output$gofTable <- renderDT({
+      datatable(gof_tests(fits(), x),
+                options = list(searching = FALSE,
+                               lengthMenu = -1,
+                               lengthChange = FALSE,
+                               paging = FALSE)
+                ) %>% formatRound(columns = 2:7)
+
     })
     output$densityPlot <- renderPlot({
       plot_density(x, fits(), input$nbins) +
@@ -43,8 +50,6 @@ fitDistributionsAddin <- function() {
       plot_qq(x, fits()) +
         theme_bw()
     })
-
-    # Handle the Done button being pressed.
     observeEvent(input$done, {
       stopApp("Done")
     })
