@@ -1,4 +1,4 @@
-fit_distributions <- function() {
+fitDistributionsAddin <- function() {
   ui <- miniPage(
     gadgetTitleBar("Drag to select points"),
     miniContentPanel(
@@ -26,7 +26,9 @@ fit_distributions <- function() {
       dists <- c('gamma', 'lnorm', 'weibull')
       fits <- lapply(dists, fit_univariate, x = x)
     })
-    # Render the plot
+    output$gofTable <- renderTable({
+      gof_tests()
+    })
     output$densityPlot <- renderPlot({
       plot_density(x, fits(), input$nbins) +
         theme_bw()
