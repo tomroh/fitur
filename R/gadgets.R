@@ -20,34 +20,37 @@ fit_dist_addin <- function() {
                        Logistic = 'logis', InverseWeibull = 'invweibull',
                        InverseGamma = 'invgamma')
   ui <- miniPage(
-    gadgetTitleBar("Drag to select points"),
     miniContentPanel(
-      fillRow(
-        fillCol(flex = c(NA, NA, 1, 1),
-          selectInput('distributions', 'Distributions',
-                      choices = continuousDists,
-                      selected = 'norm',
-                      multiple = TRUE),
-          selectInput('data', label = 'Data',
+      fillCol(flex = c(NA, NA, 1),
+              gadgetTitleBar("Fit Distributions"),
+      fillRow(flex = c(NA, NA, NA, NA),
+        selectizeInput('distributions', 'Distributions',
+                    choices = continuousDists,
+                    selected = 'norm',
+                    multiple = TRUE),
+        selectInput('data', label = 'Data',
                     choices = numericObjects),
-          DTOutput('gofTable'),
+        numericInput('nbins', 'No. of Bins', value = 30,
+                     min = 5, max = 100, step = 1)
+      ),
+      fillRow(
+        fillCol(flex = c(1, 1),
+          DTOutput('gofTable', height = '100%'),
           plotOutput('ppPlot', height = '100%')
         ),
-        fillCol(flex = c(NA, 1, 1),
-          numericInput('nbins', 'No. of Bins', value = 30,
-                       min = 5, max = 100, step = 1),
+        fillCol(flex = c(1, 1),
           plotOutput('densityPlot', height = '100%'),
-          #textOutput('whatX'),
           plotOutput('qqPlot', height = '100%')
           )
       )
     )
   )
+  )
 
   server <- function(input, output, session) {
     require(fitur)
+    require(miniUI)
     x <- reactive({
-      print(get(input$data))
       get(input$data, envir = .GlobalEnv)
     })
     fits <- reactive({
@@ -57,7 +60,7 @@ fit_dist_addin <- function() {
     })
     output$gofTable <- renderDT({
       gof <- gof_tests(fits(), x())
-      datatable(gof,
+      datatable(setNames(gof, gsub('_', ' ', names(gof))),
                 options = list(searching = FALSE,
                                lengthMenu = -1,
                                lengthChange = FALSE,
