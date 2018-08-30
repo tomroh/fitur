@@ -8,16 +8,28 @@
 #'
 #' @export
 fit_dist_addin <- function() {
+  numericObjects <- ls(envir = .GlobalEnv)[sapply(ls(envir = .GlobalEnv),
+                                                  function(xChar) {
+    is.numeric(get(xChar, envir = .GlobalEnv))}
+  )]
+  discreteDists <- c('geom', 'nbinom', 'pois', 'dunif')
+  continuousDists <- c(Exponential = 'exp', Cauchy = 'cauchy',
+                       Gamma = 'gamma', LogNormal = 'lnorm',
+                       Normal = 'norm', Uniform = 'unif',
+                       Weibull = 'weibull', LogLogistic = 'llogis',
+                       Logistic = 'logis', InverseWeibull = 'invweibull',
+                       InverseGamma = 'invgamma')
   ui <- miniPage(
     gadgetTitleBar("Drag to select points"),
     miniContentPanel(
       fillRow(
         fillCol(flex = c(NA, NA, 1, 1),
           selectInput('distributions', 'Distributions',
-                      choices = c('Weibull', 'Lognormal'),
+                      choices = continuousDists,
+                      selected = 'norm',
                       multiple = TRUE),
           selectInput('data', label = 'Data',
-                    choices = 'x'),#ls()[sapply(ls(), function(xChar) is.numeric(get(xChar)))]),
+                    choices = numericObjects),
           DTOutput('gofTable'),
           plotOutput('ppPlot', height = '100%')
         ),
@@ -34,16 +46,13 @@ fit_dist_addin <- function() {
 
   server <- function(input, output, session) {
     require(fitur)
-    # x <- rweibull(100, 1)
-    # xChar <- sapply(ls(), function(xChar) is.numeric(get(xChar)))
-    # whatX <- renderText({print(x())})
     x <- reactive({
       print(get(input$data))
       get(input$data, envir = .GlobalEnv)
     })
     fits <- reactive({
       x <- x()
-      dists <- c('gamma', 'lnorm', 'weibull')
+      dists <- input$distributions
       fits <- lapply(dists, fit_univariate, x = x)
     })
     output$gofTable <- renderDT({
