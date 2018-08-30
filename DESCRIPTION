@@ -13,7 +13,10 @@ Imports:
     actuar,
     e1071,
     ggplot2,
-    goftest
+    goftest,
+    shiny (>= 0.13),
+    miniUI (>= 0.1.1),
+    rstudioapi (>= 0.5)
 Suggests:
     knitr, rmarkdown
 License: MIT + file LICENSE
