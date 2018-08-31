@@ -7,5 +7,7 @@
 fit_dist_addin()
 }
 \description{
-Fit Univariate Distributions Addin
+Interactively submit a numeric vector and choose what distributions that
+you want to run fit diagnostics. Click done to have the desired distribution
+code put into your cursor position.
 }

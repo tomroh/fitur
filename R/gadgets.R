@@ -19,28 +19,28 @@ fit_dist_addin <- function() {
                        Weibull = 'weibull', LogLogistic = 'llogis',
                        Logistic = 'logis', InverseWeibull = 'invweibull',
                        InverseGamma = 'invgamma')
-  ui <- miniPage(
-    miniContentPanel(
-      fillCol(flex = c(NA, NA, 1),
-              gadgetTitleBar("Fit Distributions"),
-      fillRow(flex = c(NA, NA, NA, NA),
-        selectizeInput('distributions', 'Distributions',
+  ui <- miniUI::miniPage(
+    miniUI::miniContentPanel(
+      shiny::fillCol(flex = c(NA, NA, 1),
+              miniUI::gadgetTitleBar("Fit Distributions"),
+              shiny::fillRow(flex = c(NA, NA, NA, NA),
+        shiny::selectizeInput('distributions', 'Distributions',
                     choices = continuousDists,
                     selected = 'norm',
                     multiple = TRUE),
-        selectInput('data', label = 'Data',
+        shiny::selectInput('data', label = 'Data',
                     choices = numericObjects),
-        numericInput('nbins', 'No. of Bins', value = 30,
+        shiny::numericInput('nbins', 'No. of Bins', value = 30,
                      min = 5, max = 100, step = 1)
       ),
-      fillRow(
-        fillCol(flex = c(1, 1),
-          DTOutput('gofTable', height = '100%'),
-          plotOutput('ppPlot', height = '100%')
+      shiny::fillRow(
+        shiny::fillCol(flex = c(1, 1),
+          DT::DTOutput('gofTable', height = '100%'),
+          shiny::plotOutput('ppPlot', height = '100%')
         ),
-        fillCol(flex = c(1, 1),
-          plotOutput('densityPlot', height = '100%'),
-          plotOutput('qqPlot', height = '100%')
+        shiny::fillCol(flex = c(1, 1),
+          shiny::plotOutput('densityPlot', height = '100%'),
+          shiny::plotOutput('qqPlot', height = '100%')
           )
       )
     )
@@ -50,45 +50,45 @@ fit_dist_addin <- function() {
   server <- function(input, output, session) {
     require(fitur)
     require(miniUI)
-    x <- reactive({
+    x <- shiny::reactive({
       get(input$data, envir = .GlobalEnv)
     })
-    fits <- reactive({
+    fits <- shiny::reactive({
       x <- x()
       dists <- input$distributions
-      fits <- lapply(dists, fit_univariate, x = x)
+      fits <- lapply(dists, fitur::fit_univariate, x = x)
     })
-    output$gofTable <- renderDT({
-      gof <- gof_tests(fits(), x())
-      datatable(setNames(gof, gsub('_', ' ', names(gof))),
+    output$gofTable <- DT::renderDT({
+      gof <- fitur::gof_tests(fits(), x())
+      DT::datatable(setNames(gof, gsub('_', ' ', names(gof))),
                 options = list(searching = FALSE,
                                lengthMenu = -1,
                                lengthChange = FALSE,
                                paging = FALSE)
-                ) %>% formatRound(columns = 2:7)
+                ) %>% DT::formatRound(columns = 2:7)
 
     })
-    output$densityPlot <- renderPlot({
-      plot_density(x(), fits(), input$nbins) +
-        theme_bw()
+    output$densityPlot <- shiny::renderPlot({
+      fitur::plot_density(x(), fits(), input$nbins) +
+        ggplot2::theme_bw()
     })
 
     output$ppPlot <- renderPlot({
-      plot_pp(x(), fits()) +
-        theme_bw()
+      fitur::plot_pp(x(), fits()) +
+        ggplot2::theme_bw()
     })
 
     output$qqPlot <- renderPlot({
-      plot_qq(x(), fits()) +
-        theme_bw()
+      fitur::plot_qq(x(), fits()) +
+        ggplot2::theme_bw()
     })
     observeEvent(input$done, {
       stopApp("Done")
     })
   }
 
-  runGadget(ui, server,
+  shiny::runGadget(ui, server,
             #viewer = dialogViewer('Fit Univariate Distributions', 800, 800)
-            viewer = paneViewer()
+            viewer = shiny::paneViewer()
             )
 }
