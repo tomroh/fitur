@@ -4,7 +4,7 @@
 #' you want to run fit diagnostics. Click done to have the desired distribution
 #' code put into your cursor position.
 #'
-#'
+#' @import miniUI
 #'
 #' @export
 fit_dist_addin <- function() {
@@ -22,7 +22,7 @@ fit_dist_addin <- function() {
   ui <- miniUI::miniPage(
     miniUI::miniContentPanel(
       shiny::fillCol(flex = c(NA, NA, 1),
-              miniUI::gadgetTitleBar("Fit Distributions"),
+              miniUI::gadgetTitleBar("Fit Distributions", right = NULL),
               shiny::fillRow(flex = c(NA, NA, NA, NA),
         shiny::selectizeInput('distributions', 'Distributions',
                     choices = continuousDists,
@@ -48,8 +48,6 @@ fit_dist_addin <- function() {
   )
 
   server <- function(input, output, session) {
-    require(fitur)
-    require(miniUI)
     x <- shiny::reactive({
       get(input$data, envir = .GlobalEnv)
     })
@@ -60,12 +58,14 @@ fit_dist_addin <- function() {
     })
     output$gofTable <- DT::renderDT({
       gof <- fitur::gof_tests(fits(), x())
-      DT::datatable(setNames(gof, gsub('_', ' ', names(gof))),
+      DT::formatRound(
+        DT::datatable(setNames(gof, gsub('_', ' ', names(gof))),
                 options = list(searching = FALSE,
                                lengthMenu = -1,
                                lengthChange = FALSE,
                                paging = FALSE)
-                ) %>% DT::formatRound(columns = 2:7)
+                ),
+        columns = 2:7)
 
     })
     output$densityPlot <- shiny::renderPlot({
@@ -73,22 +73,21 @@ fit_dist_addin <- function() {
         ggplot2::theme_bw()
     })
 
-    output$ppPlot <- renderPlot({
+    output$ppPlot <- shiny::renderPlot({
       fitur::plot_pp(x(), fits()) +
         ggplot2::theme_bw()
     })
 
-    output$qqPlot <- renderPlot({
+    output$qqPlot <- shiny::renderPlot({
       fitur::plot_qq(x(), fits()) +
         ggplot2::theme_bw()
     })
-    observeEvent(input$done, {
-      stopApp("Done")
-    })
+    # shiny::observeEvent(input$done, {
+    #   shiny::stopApp("Done")
+    # })
   }
 
   shiny::runGadget(ui, server,
-            #viewer = dialogViewer('Fit Univariate Distributions', 800, 800)
             viewer = shiny::paneViewer()
             )
 }
