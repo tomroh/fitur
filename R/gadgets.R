@@ -70,16 +70,19 @@ fit_dist_addin <- function() {
     })
     output$densityPlot <- shiny::renderPlot({
       fitur::plot_density(x(), fits(), input$nbins) +
+        ggplot2::labs(title = 'Density Plot') +
         ggplot2::theme_bw()
     })
 
     output$ppPlot <- shiny::renderPlot({
       fitur::plot_pp(x(), fits()) +
+        ggplot2::labs(title = 'PP-Plot') +
         ggplot2::theme_bw()
     })
 
     output$qqPlot <- shiny::renderPlot({
       fitur::plot_qq(x(), fits()) +
+        ggplot2::labs(title = 'QQ-Plot') +
         ggplot2::theme_bw()
     })
     # shiny::observeEvent(input$done, {
