@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Authors • fitur</title>
+<title>Goodness of Fit Testing — gof_tests • fitur</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,12 +25,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
-<meta property="og:title" content="Authors" />
+<meta property="og:title" content="Goodness of Fit Testing — gof_tests" />
+
+<meta property="og:description" content="Apply all goodness of fit tests and return a data.frame with the results" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -56,7 +59,7 @@
   </head>
 
   <body>
-    <div class="container template-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -67,7 +70,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">fitur</a>
+        <a class="navbar-link" href="../index.html">fitur</a>
         <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.6.1</span>
       </span>
     </div>
@@ -75,13 +78,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="reference/index.html">Reference</a>
+  <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -91,18 +94,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/diagnostic_plots.html">Diagnostic Plots for Fitting Distributions</a>
+      <a href="../articles/diagnostic_plots.html">Diagnostic Plots for Fitting Distributions</a>
     </li>
     <li>
-      <a href="articles/introduction.html">Introduction to fitur</a>
+      <a href="../articles/introduction.html">Introduction to fitur</a>
     </li>
     <li>
-      <a href="articles/univariate_distributions.html">Supported Distributions</a>
+      <a href="../articles/univariate_distributions.html">Supported Distributions</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -123,22 +126,66 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Authors</h1>
+    <h1>Goodness of Fit Testing</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tomroh/fitur/blob/master/R/diagnostics.R'><code>R/diagnostics.R</code></a></small>
+    <div class="hidden name"><code>gof_tests.Rd</code></div>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>Thomas Roh</strong>. Author, maintainer. 
-        </p>
-      </li>
+    <div class="ref-description">
+    
+    <p>Apply all goodness of fit tests and return a data.frame with the results</p>
+    
+    </div>
+
+    <pre class="usage"><span class='fu'>gof_tests</span>(<span class='no'>fits</span>, <span class='no'>x</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>fits</th>
+      <td><p>a list object produced from fit_univariate, fit_empirical, or
+fit_univariate_man</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>numeric vector of sample data</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>a data.frame of test statistic results for each distribution</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>84</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>rgamma</span>(<span class='fl'>100</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)
+<span class='no'>dists</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>'gamma'</span>, <span class='st'>'lnorm'</span>, <span class='st'>'weibull'</span>)
+<span class='no'>multipleFits</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='no'>dists</span>, <span class='no'>fit_univariate</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>)
+<span class='fu'>gof_tests</span>(<span class='no'>multipleFits</span>, <span class='no'>x</span>)</div><div class='output co'>#&gt;   distribution ks_statistic ks_p_value ad_statistic ad_p_value cv_statistic
+#&gt; 1        gamma   0.09148230 0.37259701    0.6894059 0.56735453   0.12941452
+#&gt; 2        lnorm   0.15167137 0.02008675    2.8709299 0.03193707   0.50728236
+#&gt; 3      weibull   0.07223744 0.67373787    0.4375504 0.81047531   0.07674045
+#&gt;   cv_p_value
+#&gt; 1 0.45953635
+#&gt; 2 0.03796115
+#&gt; 3 0.71201030</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
-
 </div>
-
 
       <footer>
       <div class="copyright">
