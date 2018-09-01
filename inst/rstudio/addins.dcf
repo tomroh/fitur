@@ -1,0 +1,5 @@
+Name: Fit Distributions
+Description: Fit univariate distributions automatically and run plots and tests
+for examining results
+Binding: fit_dist_addin
+Interactive: true

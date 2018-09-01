@@ -66,9 +66,9 @@ Mode <- function(x) {
 #' plot_qq(x, fits) +
 #' theme_bw()
 plot_qq <- function(x, fits) {
+  stopifnot(is.distfun(fits) | all(sapply(fits, is.distfun)))
+  if ( is.distfun(fits) ) fits <- list(fits)
   theorQuant <- lapply(fits, function(fit) {
-    # is.distfun(fit)
-    # if(pmatch(c('d', 'p', 'q', 'r', 'parameters'), testNames))
     probs <- 1:length(x)/(length(x) + 1)
     data.frame(distribution = names(fit)[3],
                theoretical = sort(fit[[3]](probs)),
@@ -84,8 +84,6 @@ plot_qq <- function(x, fits) {
     geom_abline(slope = 1,
                 color = 'black')
 }
-# with classes implemented just check if distfun -> if so wrap in list
-# if distfuns class continue as usual
 
 #' P-P Plot
 #'
@@ -115,6 +113,8 @@ plot_qq <- function(x, fits) {
 #' plot_pp(x, fits) +
 #' theme_bw()
 plot_pp <- function(x, fits) {
+  stopifnot(is.distfun(fits) | all(sapply(fits, is.distfun)))
+  if ( is.distfun(fits) ) fits <- list(fits)
   probs <- 1:length(x)/(length(x) + 1)
   theorPerc <- lapply(fits, function(fit) {
     data.frame(distribution = names(fit)[2],
@@ -164,7 +164,8 @@ plot_pp <- function(x, fits) {
 #' plot_density(x, fits, 30) +
 #' theme_bw()
 plot_density <- function(x, fits, nbins) {
-
+  stopifnot(is.distfun(fits) | all(sapply(fits, is.distfun)))
+  if ( is.distfun(fits) ) fits <- list(fits)
   df <- data.frame(x = x)
   g <- ggplot(df, aes(x)) +
     geom_histogram(aes(y = ..density..),
@@ -251,3 +252,66 @@ cvm_test.distfun <- function(distfun, x) {
 cvm_test <- function(distfun, x) {
   UseMethod("cvm_test")
 }
+
+#' Goodness of Fit Testing
+#'
+#' Apply all goodness of fit tests and return a data.frame with the results
+#'
+#' @param fits
+#'
+#' a list object produced from fit_univariate, fit_empirical, or
+#' fit_univariate_man
+#'
+#' @param x
+#'
+#' numeric vector of sample data
+#'
+#' @return
+#'
+#' a data.frame of test statistic results for each distribution
+#'
+#' @export
+#'
+#' @examples
+#' set.seed(84)
+#' x <- rgamma(100, 1, 1)
+#' dists <- c('gamma', 'lnorm', 'weibull')
+#' multipleFits <- lapply(dists, fit_univariate, x = x)
+#' gof_tests(multipleFits, x)
+gof_tests <- function(fits, x) {
+  stopifnot(is.distfun(fits) | all(sapply(fits, is.distfun)))
+  gofTests <- setNames(c(ks_test, ad_test, cvm_test),
+                       c("ks", "ad", "cv"))
+  if ( is.distfun(fits) ) fits <- list(fits)
+  names(fits) <- sapply(fits, function(fit) sub("^d", "", names(fit)[[1]]))
+  tests <- lapply(fits, function(fit) {
+    lapply(gofTests, gof_test, fit = fit, x = x)
+  })
+  tests <- cbind(distribution = names(tests),
+                 do.call(rbind, lapply(tests, as.data.frame)),
+                 stringsAsFactors = FALSE,
+                 row.names = NULL)
+  setNames(tests, gsub("\\.", "_", names(tests)))
+}
+
+gof_test <- function(fit, gofTest, x = x) {
+  data.frame(unclass(gofTest(fit, x)[c('statistic', 'p.value')]))
+}
+
+#' Test if object is a distfun object
+#'
+#' @param x
+#'
+#' an R object to be tested
+#'
+#' @return
+#'
+#' TRUE if x is a disfun object, FALSE otherwise
+#'
+#' @export
+#'
+is.distfun <- function(x) {
+  inherits(x, "distfun")
+}
+
+
