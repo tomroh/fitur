@@ -4,6 +4,7 @@
 [![CRAN status](https://www.r-pkg.org/badges/version/fitur)](https://CRAN.R-project.org/package=fitur)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/fitur?color=green)](https://cran.r-project.org/package=fitur)
+[![R-CMD-check](https://github.com/tomroh/fitur/workflows/R-CMD-check/badge.svg)](https://github.com/tomroh/fitur/actions)
 <!-- badges: end -->
 
 
