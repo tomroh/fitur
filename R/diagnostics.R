@@ -18,7 +18,7 @@
 calc_moments <- function(x) {
   stopifnot(is.numeric(x))
   c(mean = mean(x),
-    sd = sd(x),
+    sd = stats::sd(x),
     skewness = skewness(x),
     kurtosis = kurtosis(x))
 }

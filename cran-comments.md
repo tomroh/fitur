@@ -7,7 +7,8 @@
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs.
+There were no ERRORs or WARNINGs. This is a patch update to fix changes in 
+the "actuar" package dependency.
 
 0 errors | 0 warnings | 0 notes
 

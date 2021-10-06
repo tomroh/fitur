@@ -1,3 +1,7 @@
+# fitur 0.6.2
+
+* fixing issues with the order of loading functions given the "actuar" package has implemented it's own 'var' and 'sd' functions
+
 # fitur 0.6.1
 
 * shiny gadget for fitting univariate distributions has been added
