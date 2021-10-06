@@ -59,7 +59,7 @@ fit_dist_addin <- function() {
     output$gofTable <- DT::renderDT({
       gof <- fitur::gof_tests(fits(), x())
       DT::formatRound(
-        DT::datatable(setNames(gof, gsub('_', ' ', names(gof))),
+        DT::datatable(stats::setNames(gof, gsub('_', ' ', names(gof))),
                 options = list(searching = FALSE,
                                lengthMenu = -1,
                                lengthChange = FALSE,
