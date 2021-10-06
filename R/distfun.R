@@ -97,7 +97,7 @@ fit_univariate <- function(x, distribution, type = 'continuous') {
 #'
 #' @return list of distribution functions for d, p, q, r, and parameters
 #'
-#' @import fitdistrplus actuar
+#' @import actuar
 #'
 #' @export
 #'
@@ -127,7 +127,7 @@ build_dist <- function(x, distribution) {
   if (distribution %in% 'dunif') {
     parameters <- c(min = min(x), max = max(x))
   } else {
-    parameters <- fitdist(data = x, distr = distribution)[['estimate']]
+    parameters <- fitdistrplus::fitdist(data = x, distr = distribution)[['estimate']]
   }
   funs <- lapply(setNames(funs, names(funs)), gen_dist_fun,
                  parameters = parameters)
@@ -149,8 +149,6 @@ build_dist <- function(x, distribution) {
 #' @return
 #'
 #' list of distribution functions for d, p, q, r, and parameters
-#'
-#' @import stats
 #'
 #' @export
 #'
