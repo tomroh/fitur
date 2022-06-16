@@ -15,4 +15,4 @@ the "actuar" package dependency.
 ## There are no downstream dependencies
 
 * There are currently no downstream dependencies for this package
-  
+

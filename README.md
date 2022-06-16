@@ -33,3 +33,4 @@ fittedPois$qpois(.5)
 fittedPois$rpois(100)
 fittedPois$parameters
 ```
+
