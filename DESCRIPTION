@@ -22,4 +22,4 @@ Suggests:
 License: MIT + file LICENSE
 Encoding: UTF-8
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0

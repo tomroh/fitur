@@ -314,4 +314,3 @@ is.distfun <- function(x) {
   inherits(x, "distfun")
 }
 
-
