@@ -18,7 +18,7 @@
 calc_moments <- function(x) {
   stopifnot(is.numeric(x))
   c(mean = mean(x),
-    sd = sd(x),
+    sd = stats::sd(x),
     skewness = skewness(x),
     kurtosis = kurtosis(x))
 }
@@ -220,7 +220,7 @@ ks_test <- function(distfun, x, ...) {
 
 #' @export
 ks_test.distfun <- function(distfun, x, ...) {
-  ks.test(x, distfun[[2]], ...)
+  stats::ks.test(x, distfun[[2]], ...)
 }
 
 #' @rdname GOFTests
@@ -280,7 +280,7 @@ cvm_test <- function(distfun, x) {
 #' gof_tests(multipleFits, x)
 gof_tests <- function(fits, x) {
   stopifnot(is.distfun(fits) | all(sapply(fits, is.distfun)))
-  gofTests <- setNames(c(ks_test, ad_test, cvm_test),
+  gofTests <- stats::setNames(c(ks_test, ad_test, cvm_test),
                        c("ks", "ad", "cv"))
   if ( is.distfun(fits) ) fits <- list(fits)
   names(fits) <- sapply(fits, function(fit) sub("^d", "", names(fit)[[1]]))
@@ -291,7 +291,7 @@ gof_tests <- function(fits, x) {
                  do.call(rbind, lapply(tests, as.data.frame)),
                  stringsAsFactors = FALSE,
                  row.names = NULL)
-  setNames(tests, gsub("\\.", "_", names(tests)))
+  stats::setNames(tests, gsub("\\.", "_", names(tests)))
 }
 
 gof_test <- function(fit, gofTest, x = x) {

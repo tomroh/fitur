@@ -6,3 +6,5 @@ references/
 docs/
 _pkgdown.yaml
 revdep/
+^\.github$
+^CRAN-RELEASE$

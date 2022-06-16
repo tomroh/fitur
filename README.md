@@ -1,5 +1,13 @@
 # fitur
 
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/fitur)](https://CRAN.R-project.org/package=fitur)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/fitur?color=green)](https://cran.r-project.org/package=fitur)
+[![R-CMD-check](https://github.com/tomroh/fitur/workflows/R-CMD-check/badge.svg)](https://github.com/tomroh/fitur/actions)
+<!-- badges: end -->
+
+
 Wrapper for computing parameters for univariate distributions using MLE. It creates an object that stores d, p, q, r functions as well as parameters and statistics for diagnostics. Currently supports automated fitting from base and actuar packages. A manually fitting distribution fitting function is included to support directly specifying parameters for any distribution from ancillary packages.
 
 ## Installation

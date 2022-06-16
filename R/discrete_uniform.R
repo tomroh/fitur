@@ -58,6 +58,6 @@ qdunif <- function(p, min=0, max=1) {
 
 #' @rdname DiscreteUniform
 #' @export
-rdunif <- function(n, min=0, max=1) {
-  sample(min:max, n, replace=TRUE)
+rdunif <- function(n, min=0L, max=1) {
+  sample(seq(min, max, 1L), n, replace=TRUE)
 }

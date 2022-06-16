@@ -97,7 +97,7 @@ fit_univariate <- function(x, distribution, type = 'continuous') {
 #'
 #' @return list of distribution functions for d, p, q, r, and parameters
 #'
-#' @import fitdistrplus actuar
+#' @rawNamespace import(actuar, except = c(sd, var))
 #'
 #' @export
 #'
@@ -127,9 +127,9 @@ build_dist <- function(x, distribution) {
   if (distribution %in% 'dunif') {
     parameters <- c(min = min(x), max = max(x))
   } else {
-    parameters <- fitdist(data = x, distr = distribution)[['estimate']]
+    parameters <- fitdistrplus::fitdist(data = x, distr = distribution)[['estimate']]
   }
-  funs <- lapply(setNames(funs, names(funs)), gen_dist_fun,
+  funs <- lapply(stats::setNames(funs, names(funs)), gen_dist_fun,
                  parameters = parameters)
   funs[['parameters']] <- parameters
   structure(funs,
@@ -149,8 +149,6 @@ build_dist <- function(x, distribution) {
 #' @return
 #'
 #' list of distribution functions for d, p, q, r, and parameters
-#'
-#' @import stats
 #'
 #' @export
 #'
@@ -177,7 +175,7 @@ fit_univariate_man <- function(distribution, parameters) {
     stop("Specified names of parameters do not match argument names of functions")
   }
 
-  funs <- lapply(setNames(funs, names(funs)),
+  funs <- lapply(stats::setNames(funs, names(funs)),
                  gen_dist_fun,
                  parameters = parameters)
   funs[['parameters']] <- parameters
@@ -325,7 +323,7 @@ fit_empirical_continuous <- function(x) {
   stopifnot(is.double(x))
   x <- sort(x)
   # Freedman-Diaconis rule for optimal number of histogram bins
-  nbins <- diff(range(x)) / (2 * IQR(x) / length(x)^(1/3))
+  nbins <- diff(range(x)) / (2 * stats::IQR(x) / length(x)^(1/3))
   bins <- sapply(split(x, cut(x, nbins)), length)
   intervals <- get_interval_nums(names(bins))
   # use midpoint of intervals for return values

@@ -14,7 +14,7 @@ pdunif(q, min = 0, max = 1)
 
 qdunif(p, min = 0, max = 1)
 
-rdunif(n, min = 0, max = 1)
+rdunif(n, min = 0L, max = 1)
 }
 \arguments{
 \item{x}{vector of (non-negative integer) quantiles}

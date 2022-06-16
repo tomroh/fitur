@@ -1,13 +1,14 @@
 ## Test environments
 
-* Ubuntu 14.04, R 3.4.2 (on travis-ci)
-* OS X, R 3.4.2 (on travis-ci)
+* Ubuntu 20.04, (devel and release)
+* macOS-latest (release)
 * win-builder (devel and release)
-* Windows 10 Pro, R 3.4.3 (local)
+* Windows 10 Pro, R 4.1.0 (local)
 
 ## R CMD check results
 
-There were no ERRORs or WARNINGs.
+There were no ERRORs or WARNINGs. This is a patch update to fix changes in 
+the "actuar" package dependency.
 
 0 errors | 0 warnings | 0 notes
 
